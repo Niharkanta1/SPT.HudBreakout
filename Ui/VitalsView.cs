@@ -18,9 +18,9 @@ namespace HudBreakout
         // Used when the theme doesn't define any <Stat> nodes of its own.
         private const string DefaultStats =
             "<Stats>" +
-            "<Stat id='Health' label='HEALTH' x='100' y='128'/>" +
-            "<Stat id='Energy' label='ENERGY' x='100' y='70'/>" +
-            "<Stat id='Hydration' label='HYDRATION' x='100' y='12'/>" +
+            "<Stat id='Health' label='@stats.health' x='100' y='128'/>" +
+            "<Stat id='Energy' label='@stats.energy' x='100' y='70'/>" +
+            "<Stat id='Hydration' label='@stats.hydration' x='100' y='12'/>" +
             "</Stats>";
 
         // Below this health ratio, automatically colored stats start to pulse.
@@ -207,7 +207,11 @@ namespace HudBreakout
                 ThemeLabelEnabled = statSettings.GetBoolean("showLabel", true)
             };
 
-            var labelText = statSettings.GetString("label", statId.ToUpperInvariant());
+            var defaultLabel = statId == "Health" ? "@stats.health"
+                : statId == "Energy" ? "@stats.energy"
+                : statId == "Hydration" ? "@stats.hydration"
+                : statId.ToUpperInvariant();
+            var labelText = TextLocalization.ResolveThemeText(statSettings.GetString("label", defaultLabel));
             stat.Label = UiKit.CreateLabel(statRoot, statId + "Label", labelText, labelFontSize,
                 statSettings.GetColor("labelColor", _theme.Dim),
                 TextAnchor.LowerLeft, Vector2.zero, Vector2.zero,
@@ -341,7 +345,9 @@ namespace HudBreakout
             foreach (var bodyPartImage in _bodyPartImages)
                 bodyPartImage.Value.color = _theme.HealthColor(UnityEngine.Random.Range(0.1f, 1f));
 
-            if (_status) _status.text = "R.ARM BROKEN";
+            if (_status)
+                _status.text = TextLocalization.Get("body.status.broken", "{part} BROKEN")
+                    .Replace("{part}", Name(EBodyPart.RightArm));
         }
 
         public void Update(Player player, float deltaTime)
@@ -440,9 +446,11 @@ namespace HudBreakout
             {
                 var bodyPart = entry.Key;
                 if (healthController.IsBodyPartDestroyed(bodyPart))
-                    _bodyPartIssueLabels.Add(Name(bodyPart) + " LOST");
+                    _bodyPartIssueLabels.Add(TextLocalization.Get("body.status.lost", "{part} LOST")
+                        .Replace("{part}", Name(bodyPart)));
                 else if (healthController.IsBodyPartBroken(bodyPart))
-                    _bodyPartIssueLabels.Add(Name(bodyPart) + " BROKEN");
+                    _bodyPartIssueLabels.Add(TextLocalization.Get("body.status.broken", "{part} BROKEN")
+                        .Replace("{part}", Name(bodyPart)));
             }
 
             var text = string.Join("  ", _bodyPartIssueLabels);
@@ -527,12 +535,15 @@ namespace HudBreakout
         {
             switch (part)
             {
-                case EBodyPart.Chest: return "THORAX";
-                case EBodyPart.LeftArm: return "L.ARM";
-                case EBodyPart.RightArm: return "R.ARM";
-                case EBodyPart.LeftLeg: return "L.LEG";
-                case EBodyPart.RightLeg: return "R.LEG";
-                default: return part.ToString().ToUpperInvariant();
+                case EBodyPart.Head: return TextLocalization.Get("body.head");
+                case EBodyPart.Chest: return TextLocalization.Get("body.chest");
+                case EBodyPart.Stomach: return TextLocalization.Get("body.stomach");
+                case EBodyPart.LeftArm: return TextLocalization.Get("body.left_arm");
+                case EBodyPart.RightArm: return TextLocalization.Get("body.right_arm");
+                case EBodyPart.LeftLeg: return TextLocalization.Get("body.left_leg");
+                case EBodyPart.RightLeg: return TextLocalization.Get("body.right_leg");
+                default: return TextLocalization.Get("body." + part.ToString().ToLowerInvariant(),
+                    part.ToString().ToUpperInvariant());
             }
         }
     }

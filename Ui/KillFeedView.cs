@@ -62,8 +62,10 @@ namespace HudBreakout
             _lineSpacing = settings.GetFloat("spacing", 4f);
             _lineHeight = _fontSize + LinePadding;
 
-            _format = settings.GetString("format", "{name}  {c:#8d8d8d}{weapon}  {distance}m  {part}{/c}");
-            _headshotFormat = settings.GetString("headshotFormat", _format + "  {c:#f2cf5b}HEADSHOT{/c}");
+            _format = settings.GetString("format",
+                TextLocalization.Get("killfeed.format", "{name}  {c:#8d8d8d}{weapon}  {distance}{distanceUnit}  {part}{/c}"));
+            _headshotFormat = settings.GetString("headshotFormat",
+                _format + "  {c:#f2cf5b}{t:killfeed.headshot}{/c}");
         }
 
         public void Reset()
@@ -119,9 +121,13 @@ namespace HudBreakout
         private string Fill(string format, KillEvent killEvent)
         {
             var text = format
-                .Replace("{name}", string.IsNullOrEmpty(killEvent.Name) ? "UNKNOWN" : killEvent.Name)
+                .Replace("{name}", string.IsNullOrEmpty(killEvent.Name)
+                    ? TextLocalization.Get("killfeed.unknown")
+                    : killEvent.Name)
                 .Replace("{weapon}", string.IsNullOrEmpty(killEvent.Weapon) ? "" : killEvent.Weapon.ToUpperInvariant())
                 .Replace("{distance}", Mathf.RoundToInt(killEvent.Distance).ToString())
+                .Replace("{distanceUnit}", TextLocalization.Get("killfeed.distance_unit"))
+                .Replace("{t:killfeed.headshot}", TextLocalization.Get("killfeed.headshot"))
                 .Replace("{part}", VitalsView.Name(killEvent.Part))
                 .Replace("{level}", killEvent.Level.ToString())
                 .Replace("{tag}", killEvent.Tag ?? "")

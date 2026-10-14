@@ -11,6 +11,7 @@ namespace HudBreakout
     {
         internal static ManualLogSource Log;
         internal static string ThemesDir;
+        internal static string LocalizationDir;
 
         private GameObject _hudRoot;
         private Harmony _harmony;
@@ -31,10 +32,12 @@ namespace HudBreakout
         private void Awake()
         {
             Log = Logger;
-            ThemesDir = Path.Combine(Path.GetDirectoryName(Info.Location), "Themes");
+            var pluginDirectory = Path.GetDirectoryName(Info.Location);
+            ThemesDir = Path.Combine(pluginDirectory, "Themes");
+            LocalizationDir = Path.Combine(pluginDirectory, "Localization");
             Config.SaveOnConfigSet = true;
             FontHelper.Load();
-            Settings.Bind(Config, ThemesDir);
+            Settings.Bind(Config, ThemesDir, LocalizationDir);
             _harmony = new Harmony("com.deadwolf.hudbreakout");
             _harmony.PatchAll(typeof(HudBreakoutPlugin).Assembly);
             CreateHudRoot();

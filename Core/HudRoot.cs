@@ -23,6 +23,7 @@ namespace HudBreakout
         private KillFeedView _killFeed;
 
         private string _builtTheme;
+        private string _builtLanguage;
         private string _profileId;
         private float _previewUntil;
         private bool _previewDone;
@@ -64,6 +65,7 @@ namespace HudBreakout
         private void Rebuild()
         {
             _builtTheme = Settings.ThemeName.Value;
+            _builtLanguage = Settings.Language.Value;
             Unsubscribe();
             _previewDone = false;
 
@@ -131,6 +133,12 @@ namespace HudBreakout
 
         private void Update()
         {
+            if (Settings.Language.Value != _builtLanguage)
+            {
+                TextLocalization.SetLanguage(Settings.Language.Value);
+                Rebuild();
+            }
+
             if (Settings.ReloadKey.Value.IsDown() || Settings.ThemeName.Value != _builtTheme)
                 Rebuild();
 

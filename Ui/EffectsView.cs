@@ -76,33 +76,34 @@ namespace HudBreakout
             _position = new Vector2(settings.GetFloat("x", 260), settings.GetFloat("y", -38));
             Root = UiKit.CreateNode(parent, "Effects", anchor, anchor, _position, Vector2.zero);
 
-            AddRow(settings, StatusEffect.LightBleeding, "lightBleed", "LIGHT BLEED", theme.Bad);
-            AddRow(settings, StatusEffect.HeavyBleeding, "heavyBleed", "HEAVY BLEED", theme.Bad);
-            AddRow(settings, StatusEffect.FreshWound, "freshWound", "FRESH WOUND", theme.Bad);
-            AddRow(settings, StatusEffect.Fracture, "fracture", "FRACTURE", theme.Warn);
-            AddRow(settings, StatusEffect.Pain, "pain", "PAIN", theme.Gold);
-            AddRow(settings, StatusEffect.HandsTremor, "handsTremor", "HANDS TREMOR", theme.Warn);
-            AddRow(settings, StatusEffect.MildMusclePain, "mildMusclePain", "MILD MUSCLE PAIN", theme.Warn);
-            AddRow(settings, StatusEffect.SevereMusclePain, "severeMusclePain", "SEVERE MUSCLE PAIN", theme.Bad);
-            AddRow(settings, StatusEffect.Concussion, "concussion", "CONCUSSION", theme.Warn);
-            AddRow(settings, StatusEffect.TunnelVision, "tunnelVision", "TUNNEL VISION", theme.Warn);
-            AddRow(settings, StatusEffect.Dehydration, "dehydration", "DEHYDRATION", theme.Warn);
-            AddRow(settings, StatusEffect.EnergyFatigue, "energyFatigue", "ENERGY FATIGUE", theme.Warn);
-            AddRow(settings, StatusEffect.Overweight, "overweight", "OVERWEIGHT", theme.Warn);
-            AddRow(settings, StatusEffect.CriticalOverweight, "criticalOverweight", "CRITICAL OVERWEIGHT", theme.Bad);
-            AddRow(settings, StatusEffect.Fatigue, "fatigue", "FATIGUE", theme.Warn);
-            AddRow(settings, StatusEffect.Stun, "stun", "STUN", theme.Bad);
-            AddRow(settings, StatusEffect.Flash, "flash", "FLASH", theme.Warn);
-            AddRow(settings, StatusEffect.Painkillers, "painkillers", "ON PAINKILLERS", theme.Gold);
-            AddRow(settings, StatusEffect.Buff, "buff", "BUFF", theme.Good);
-            AddRow(settings, StatusEffect.Debuff, "debuff", "DEBUFF", theme.Bad);
-            AddRow(settings, StatusEffect.Berserk, "berserk", "BERSERK MODE", theme.Bad);
-            AddRow(settings, StatusEffect.Poisoning, "poisoning", "POISONING", theme.Bad);
-            AddRow(settings, StatusEffect.PanicAttack, "panicAttack", "PANIC ATTACK", theme.Bad);
+            AddRow(settings, StatusEffect.LightBleeding, "lightBleed", "effects.light_bleeding", theme.Bad);
+            AddRow(settings, StatusEffect.HeavyBleeding, "heavyBleed", "effects.heavy_bleeding", theme.Bad);
+            AddRow(settings, StatusEffect.FreshWound, "freshWound", "effects.fresh_wound", theme.Bad);
+            AddRow(settings, StatusEffect.Fracture, "fracture", "effects.fracture", theme.Warn);
+            AddRow(settings, StatusEffect.Pain, "pain", "effects.pain", theme.Gold);
+            AddRow(settings, StatusEffect.HandsTremor, "handsTremor", "effects.hands_tremor", theme.Warn);
+            AddRow(settings, StatusEffect.MildMusclePain, "mildMusclePain", "effects.mild_muscle_pain", theme.Warn);
+            AddRow(settings, StatusEffect.SevereMusclePain, "severeMusclePain", "effects.severe_muscle_pain", theme.Bad);
+            AddRow(settings, StatusEffect.Concussion, "concussion", "effects.concussion", theme.Warn);
+            AddRow(settings, StatusEffect.TunnelVision, "tunnelVision", "effects.tunnel_vision", theme.Warn);
+            AddRow(settings, StatusEffect.Dehydration, "dehydration", "effects.dehydration", theme.Warn);
+            AddRow(settings, StatusEffect.EnergyFatigue, "energyFatigue", "effects.energy_fatigue", theme.Warn);
+            AddRow(settings, StatusEffect.Overweight, "overweight", "effects.overweight", theme.Warn);
+            AddRow(settings, StatusEffect.CriticalOverweight, "criticalOverweight", "effects.critical_overweight", theme.Bad);
+            AddRow(settings, StatusEffect.Fatigue, "fatigue", "effects.fatigue", theme.Warn);
+            AddRow(settings, StatusEffect.Stun, "stun", "effects.stun", theme.Bad);
+            AddRow(settings, StatusEffect.Flash, "flash", "effects.flash", theme.Warn);
+            AddRow(settings, StatusEffect.Painkillers, "painkillers", "effects.painkillers", theme.Gold);
+            AddRow(settings, StatusEffect.Buff, "buff", "effects.buff", theme.Good);
+            AddRow(settings, StatusEffect.Debuff, "debuff", "effects.debuff", theme.Bad);
+            AddRow(settings, StatusEffect.Berserk, "berserk", "effects.berserk", theme.Bad);
+            AddRow(settings, StatusEffect.Poisoning, "poisoning", "effects.poisoning", theme.Bad);
+            AddRow(settings, StatusEffect.PanicAttack, "panicAttack", "effects.panic_attack", theme.Bad);
         }
 
-        private void AddRow(XNode settings, StatusEffect effect, string key, string label, Color color)
+        private void AddRow(XNode settings, StatusEffect effect, string key, string labelKey, Color color)
         {
+            var label = TextLocalization.Get(labelKey);
             var rowIndex = (int)effect;
             var row = UiKit.CreateNode(Root, label, Vector2.zero, Vector2.zero,
                 new Vector2(0, -rowIndex * _rowHeight), new Vector2(190, _rowHeight));

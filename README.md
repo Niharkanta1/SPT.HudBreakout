@@ -78,9 +78,13 @@ The leg icon uses `staminaIconX`, `staminaIconY`, and `staminaIconSize`; the han
 
 Press the **Preview HUD Key** (default F10) while in a raid to temporarily display dummy data across all HUD elements for 5 seconds. This is perfect for testing your layout. It won't trigger in the Hideout or main menus.
 
-## Settings and Positioning
+## Settings, Localization, and Positioning
 
-All BepInEx settings save to `BepInEx/config/com.deadwolf.hudbreakout.cfg`. F12 tweaks apply instantly and stick between sessions. The Theme dropdown only lists folders containing a `theme.xml` file (case-insensitive). HUD text consistently uses Tarkov's built-in Bender Normal TextMeshPro asset; fonts are not selected per theme or setting. Set `shadow="false"` on the theme's `<Theme>` element to disable text shadows.
+All BepInEx settings save to `BepInEx/config/com.deadwolf.hudbreakout.cfg`. Set **Language** to `Auto`, `en`, `ru`, or `zh-CN`; the list is discovered from the catalog files in `BepInEx/plugins/HudBreakout/Localization/`. `Auto` uses the operating system display language when a matching catalog exists, otherwise it falls back to English. A language change rebuilds HUD views immediately; BepInEx setting descriptions use the selected language after the plugin starts with that selection. Setting names and config sections remain stable in English to preserve existing config keys. Mod-owned text is loaded from the catalogs. Tarkov-owned text, such as item names, continues to use Tarkov's own localization.
+
+The shipped `en.xml`, `ru.xml`, and `zh-CN.xml` catalogs use stable keys, so adding another translation does not require changing code: add a catalog named for its locale (for example, `fr.xml`) with matching `<Text key="...">...</Text>` entries. The locale automatically appears in the language selector. Missing entries fall back to English. In a theme XML file, prefix a localized value with `@` to resolve a catalog key (for example, `label="@stats.health"`); unprefixed custom theme text remains literal. Kill-feed formats can use `{t:killfeed.headshot}` and `{distanceUnit}` for localized text and distance units.
+
+F12 tweaks apply instantly and stick between sessions. The Theme dropdown only lists folders containing a `theme.xml` file (case-insensitive). HUD text consistently uses Tarkov's built-in Bender Normal TextMeshPro asset; fonts are not selected per theme or setting. Set `shadow="false"` on the theme's `<Theme>` element to disable text shadows.
 
 ### Vitals and Colors
 

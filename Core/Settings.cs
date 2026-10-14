@@ -14,7 +14,7 @@ namespace HudBreakout
         public static ConfigEntry<bool> ShowStance, ShowSpeedIndicator, ShowWeaponName, ShowAmmo, ShowGrenades;
         public static ConfigEntry<bool> ShowStaminaBars;
         public static ConfigEntry<float> Scale, Opacity, HitMarkerThickness;
-        public static ConfigEntry<string> ThemeName;
+        public static ConfigEntry<string> ThemeName, Language;
         public static ConfigEntry<KeyboardShortcut> ReloadKey, PreviewKey;
 
         public static ConfigEntry<int> VitalsX, VitalsY, SilhouetteX, SilhouetteY;
@@ -37,18 +37,24 @@ namespace HudBreakout
         private const string Layout = "Layout";
         private const string Elements = "Element Positions";
 
-        public static void Bind(ConfigFile cfg, string themesDir)
+        public static void Bind(ConfigFile cfg, string themesDir, string localizationDir)
         {
+            TextLocalization.Initialize(localizationDir, "Auto");
+            Language = cfg.Bind(Main, "Language", "Auto", new ConfigDescription(
+                TextLocalization.Get("settings.language", "HUD language. Auto follows the operating system language."),
+                new AcceptableValueList<string>(TextLocalization.AvailableLanguages)));
+            TextLocalization.SetLanguage(Language.Value);
+
             var themes = GetThemeNames(themesDir);
             if (themes.Length == 0) themes = new[] { "Minimal", "TextOnly" };
 
             ThemeName = cfg.Bind(Main, "Theme", "Minimal",
-                new ConfigDescription("HUD theme folder. Changes apply instantly.",
+                new ConfigDescription(Description("theme", "HUD theme folder. Changes apply instantly."),
                     new AcceptableValueList<string>(themes)));
             ReloadKey = cfg.Bind(Main, "Reload Theme Key", new KeyboardShortcut(KeyCode.F9),
-                "Reloads theme.xml without restarting the game.");
+                Description("reload_theme_key", "Reloads theme.xml without restarting the game."));
             PreviewKey = cfg.Bind(Main, "Preview HUD Key", new KeyboardShortcut(KeyCode.F10),
-                "Shows a sample of all HUD panels for five seconds.");
+                Description("preview_hud_key", "Shows a sample of all HUD panels for five seconds."));
 
             ShowAllHud = Toggle(cfg, "Show All HUD", "Master toggle for every HudBreakout panel.");
             ShowVitals = Toggle(cfg, "Show Vitals Panel", "Body silhouette, health, energy and hydration.");
@@ -71,11 +77,14 @@ namespace HudBreakout
             ShowStaminaBars = Toggle(cfg, "Show Stamina Bars", "Show both leg/body and hand stamina bars.");
 
             HitMarkerThickness = cfg.Bind(Main, "Hit Marker Thickness", 0f, new ConfigDescription(
-                "Line thickness in pixels. 0 uses the theme value.", new AcceptableValueRange<float>(0f, 8f)));
+                Description("hit_marker_thickness", "Line thickness in pixels. 0 uses the theme value."),
+                new AcceptableValueRange<float>(0f, 8f)));
             Scale = cfg.Bind(Main, "HUD Scale", 1f, new ConfigDescription(
-                "Overall HUD scale.", new AcceptableValueRange<float>(0.5f, 2f)));
+                Description("hud_scale", "Overall HUD scale."),
+                new AcceptableValueRange<float>(0.5f, 2f)));
             Opacity = cfg.Bind(Main, "HUD Opacity", 1f, new ConfigDescription(
-                "Opacity multiplier for the whole HUD.", new AcceptableValueRange<float>(0.2f, 1f)));
+                Description("hud_opacity", "Opacity multiplier for the whole HUD."),
+                new AcceptableValueRange<float>(0.2f, 1f)));
 
             // whole panels
             Pair(cfg, Layout, "Vitals", "the entire vitals HUD", out VitalsX, out VitalsY);
@@ -123,23 +132,37 @@ namespace HudBreakout
 
         private static ConfigEntry<bool> Toggle(ConfigFile cfg, string key, string description)
         {
-            return cfg.Bind(Main, key, true, description);
+            return cfg.Bind(Main, key, true, Description(Slug(key), description));
         }
 
         // X/Y offset pair, "label X" and "label Y" in the config
         private static void Pair(ConfigFile cfg, string category, string label, string what,
             out ConfigEntry<int> x, out ConfigEntry<int> y, int defaultY = 0)
         {
-            x = Offset(cfg, category, label + " X", "Move " + what + " horizontally.", 0);
-            y = Offset(cfg, category, label + " Y", "Move " + what + " vertically.", defaultY);
+            var localizedWhat = TextLocalization.Get("settings.item." + Slug(label), what);
+            x = Offset(cfg, category, label + " X",
+                Description("offset_x", "Move {item} horizontally.").Replace("{item}", localizedWhat), 0);
+            y = Offset(cfg, category, label + " Y",
+                Description("offset_y", "Move {item} vertically.").Replace("{item}", localizedWhat), defaultY);
         }
 
         private static ConfigEntry<int> Offset(ConfigFile cfg, string category, string key, string description,
             int defaultValue)
         {
             return cfg.Bind(category, key, defaultValue, new ConfigDescription(
-                description + " Whole-pixel offset from the theme's XML position, in HUD reference pixels.",
+                description + " " + Description("offset_units",
+                    "Whole-pixel offset from the theme's XML position, in HUD reference pixels."),
                 new AcceptableValueRange<int>(-2000, 2000)));
+        }
+
+        private static string Description(string key, string fallback)
+        {
+            return TextLocalization.Get("settings." + key, fallback);
+        }
+
+        private static string Slug(string value)
+        {
+            return value.ToLowerInvariant().Replace(' ', '_');
         }
     }
 }

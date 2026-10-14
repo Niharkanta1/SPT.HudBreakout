@@ -78,7 +78,8 @@ namespace HudBreakout
             _settings = theme.Root.GetChild("Equipment");
             ThemeShow = _settings.GetBoolean("show", true);
             ThemeScale = _settings.GetFloat("scale", 1f);
-            _grenadeLabel = _settings.GetString("grenadeLabel", "GRENADES");
+            _grenadeLabel = TextLocalization.ResolveThemeText(
+                _settings.GetString("grenadeLabel", "@equipment.grenades"));
 
             var anchor = _settings.GetAnchor("anchor", Vector2.one);
             _rightAligned = anchor.x > 0.75f;
@@ -240,7 +241,9 @@ namespace HudBreakout
             if (key != _lastWeaponKey || _localizedWeaponName == null)
             {
                 _lastWeaponKey = key;
-                _localizedWeaponName = (key != null ? HudLocalization.Localized(key) : "UNARMED").ToUpperInvariant();
+                _localizedWeaponName = (key != null
+                    ? HudLocalization.Localized(key)
+                    : TextLocalization.Get("equipment.unarmed")).ToUpperInvariant();
             }
 
             if (_weaponName.text != _localizedWeaponName) _weaponName.text = _localizedWeaponName;

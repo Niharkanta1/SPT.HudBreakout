@@ -209,10 +209,13 @@ namespace HudBreakout
         public void Preview()
         {
             Layout();
-            if (_stance.text != "STANDING") _stance.text = "STANDING";
-            ShowStamina(_stamina, "LEG", 72, 100, 0.72f, _staminaFill, _staminaColor,
+            var standing = TextLocalization.Get("movement.stance.standing");
+            if (_stance.text != standing) _stance.text = standing;
+            ShowStamina(_stamina, TextLocalization.Get("movement.stamina.leg"),
+                72, 100, 0.72f, _staminaFill, _staminaColor,
                 ref _lastLegCurrent, ref _lastLegMax);
-            ShowStamina(_handsStamina, "HAND", 46, 100, 0.46f, _handsStaminaFill, _handStaminaColor,
+            ShowStamina(_handsStamina, TextLocalization.Get("movement.stamina.hand"),
+                46, 100, 0.46f, _handsStaminaFill, _handStaminaColor,
                 ref _lastHandCurrent, ref _lastHandMax);
         }
 
@@ -243,11 +246,11 @@ namespace HudBreakout
         {
             if (_showStanceText)
             {
-                var text = stance == Stance.Sprint ? "SPRINT"
-                    : stance == Stance.Prone ? "PRONE"
-                    : stance == Stance.Crouch ? "CROUCH"
-                    : stance == Stance.Walk ? "WALKING"
-                    : "STANDING";
+                var text = stance == Stance.Sprint ? TextLocalization.Get("movement.stance.sprint")
+                    : stance == Stance.Prone ? TextLocalization.Get("movement.stance.prone")
+                    : stance == Stance.Crouch ? TextLocalization.Get("movement.stance.crouch")
+                    : stance == Stance.Walk ? TextLocalization.Get("movement.stance.walking")
+                    : TextLocalization.Get("movement.stance.standing");
                 if (_stance.text != text) _stance.text = text;
             }
 
@@ -273,9 +276,20 @@ namespace HudBreakout
             {
                 _lastSpeedTier = _speedTier;
                 _lastSprinting = sprinting;
-                _speed.text = _speedTier == 0
-                    ? "STOP  0 KM/H"
-                    : (sprinting || _speedTier >= RunTier ? "SPRINT  " : "MOVE  ") + _speedTier + " KM/H";
+                if (_speedTier == 0)
+                {
+                    _speed.text = TextLocalization.Get("movement.speed.stop");
+                }
+                else
+                {
+                    var mode = TextLocalization.Get(sprinting || _speedTier >= RunTier
+                        ? "movement.speed.sprint"
+                        : "movement.speed.move");
+                    _speed.text = TextLocalization.Get("movement.speed.format")
+                        .Replace("{mode}", mode)
+                        .Replace("{speed}", _speedTier.ToString())
+                        .Replace("{unit}", TextLocalization.Get("movement.speed.unit"));
+                }
             }
 
             if (!_speedIcon) return;
@@ -302,9 +316,11 @@ namespace HudBreakout
             var handsMax = hands != null ? (float)hands.TotalCapacity : 0f;
             var handsCurrent = hands != null ? hands.Current : 0f;
 
-            ShowStamina(_stamina, "LEG", legCurrent, legMax, Ratio(legCurrent, legMax), _staminaFill,
+            ShowStamina(_stamina, TextLocalization.Get("movement.stamina.leg"), legCurrent, legMax,
+                Ratio(legCurrent, legMax), _staminaFill,
                 _staminaColor, ref _lastLegCurrent, ref _lastLegMax);
-            ShowStamina(_handsStamina, "HAND", handsCurrent, handsMax, Ratio(handsCurrent, handsMax),
+            ShowStamina(_handsStamina, TextLocalization.Get("movement.stamina.hand"),
+                handsCurrent, handsMax, Ratio(handsCurrent, handsMax),
                 _handsStaminaFill, _handStaminaColor, ref _lastHandCurrent, ref _lastHandMax);
         }
 
