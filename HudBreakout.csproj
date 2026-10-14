@@ -1,0 +1,81 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <AssemblyName>HudBreakout</AssemblyName>
+    <RootNamespace>HudBreakout</RootNamespace>
+    <Version>1.0.0</Version>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <DebugType>embedded</DebugType>
+    <SptPath Condition="'$(SptPath)' == ''">F:\SPT-4.1.6</SptPath>
+    <Managed>$(SptPath)\EscapeFromTarkov_Data\Managed</Managed>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Assembly-CSharp"><HintPath>$(Managed)\Assembly-CSharp.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="ItemComponent.Types"><HintPath>$(Managed)\ItemComponent.Types.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="Comfort"><HintPath>$(Managed)\Comfort.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine"><HintPath>$(Managed)\UnityEngine.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine.CoreModule"><HintPath>$(Managed)\UnityEngine.CoreModule.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine.UI"><HintPath>$(Managed)\UnityEngine.UI.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine.UIModule"><HintPath>$(Managed)\UnityEngine.UIModule.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine.TextRenderingModule"><HintPath>$(Managed)\UnityEngine.TextRenderingModule.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine.ImageConversionModule"><HintPath>$(Managed)\UnityEngine.ImageConversionModule.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="Unity.TextMeshPro"><HintPath>$(Managed)\Unity.TextMeshPro.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine.InputLegacyModule"><HintPath>$(Managed)\UnityEngine.InputLegacyModule.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="BepInEx"><HintPath>$(SptPath)\BepInEx\core\BepInEx.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="0Harmony"><HintPath>$(SptPath)\BepInEx\core\0Harmony.dll</HintPath><Private>false</Private></Reference>
+  </ItemGroup>
+
+  <Target Name="DeployToSpt" AfterTargets="Build" Condition="Exists('$(SptPath)\BepInEx\plugins')">
+    <MakeDir Directories="$(SptPath)\BepInEx\plugins\HudBreakout" />
+    <Copy SourceFiles="$(OutputPath)HudBreakout.dll" DestinationFolder="$(SptPath)\BepInEx\plugins\HudBreakout" />
+    <ItemGroup>
+      <ThemeFiles Include="Themes\**\*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(ThemeFiles)" DestinationFiles="@(ThemeFiles->'$(SptPath)\BepInEx\plugins\HudBreakout\Themes\%(RecursiveDir)%(Filename)%(Extension)')" />
+  </Target>
+
+  <Target Name="GeneratePluginInfo" BeforeTargets="CoreCompile">
+    <PropertyGroup>
+      <GeneratedPluginInfoFile>$(IntermediateOutputPath)PluginInfo.g.cs</GeneratedPluginInfoFile>
+    </PropertyGroup>
+    <WriteLinesToFile File="$(GeneratedPluginInfoFile)"
+                      Lines="namespace HudBreakout { internal static class PluginInfo { internal const string Version = &quot;$(Version)&quot;%3B } }"
+                      Overwrite="true" />
+    <ItemGroup>
+      <Compile Include="$(GeneratedPluginInfoFile)" />
+    </ItemGroup>
+  </Target>
+
+  <Target Name="PackageMod" AfterTargets="Build" Condition="'$(Configuration)' == 'Release'">
+    <PropertyGroup>
+      <PackageDirectory>$(MSBuildProjectDirectory)\dist\HudBreakout</PackageDirectory>
+      <PluginPackageDirectory>$(PackageDirectory)\BepInEx\plugins\HudBreakout</PluginPackageDirectory>
+      <PackageArchive>$(MSBuildProjectDirectory)\dist\HudBreakout-$(Version).zip</PackageArchive>
+    </PropertyGroup>
+
+    <RemoveDir Directories="$(PackageDirectory)" />
+    <MakeDir Directories="$(PluginPackageDirectory)\Themes" />
+    <Copy SourceFiles="$(OutputPath)HudBreakout.dll" DestinationFolder="$(PluginPackageDirectory)" />
+
+    <ItemGroup>
+      <PackageThemeFiles Include="Themes\**\*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(PackageThemeFiles)"
+          DestinationFiles="@(PackageThemeFiles->'$(PluginPackageDirectory)\Themes\%(RecursiveDir)%(Filename)%(Extension)')" />
+    <Copy SourceFiles="README.md" DestinationFiles="$(PackageDirectory)\README.md" />
+
+    <ZipDirectory SourceDirectory="$(PackageDirectory)" DestinationFile="$(PackageArchive)" Overwrite="true" />
+    <Delete Files="$(MSBuildProjectDirectory)\dist\HudBreakout.zip" />
+  </Target>
+
+</Project>

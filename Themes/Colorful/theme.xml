@@ -1,0 +1,166 @@
+﻿<Theme name="TarkovColorful" shadow="true">
+
+  <!-- Escape from Tarkov inspired military palette -->
+  <Colors
+      default="#FFFFFF"
+      good="#35B63A"
+      warn="#F1820E"
+      bad="#CC0104"
+      text="#C6C8C2"
+      dim="#8f968d"
+      highlight="#F6C407"
+      lost="#2C2D2E" />
+
+  <Vitals show="true" anchor="TopLeft" x="20" y="-20" scale="1">
+    <Silhouette show="true" prefix="body"
+                image="body_silhouette.png"
+                painkillerImage="body_outline.png" outline="none"
+                maskMode="alpha" maskThreshold="0.70"
+                maskSoftness="0.12"
+                x="0" y="-130" width="86" height="132"
+                opacity="0.6" baseColor="#C6C8C224"
+                flash="true" />
+
+    <Stat id="Health" label="HEALTH" showLabel="true"
+          x="102" y="-35" size="19" labelSize="9"
+          color="#1EA525" barWidth="66" barHeight="4"
+          barBackgroundSprite="bar_background.png" barFillSprite="bar_fill.png"
+          suffix="/{max}" />
+
+    <Stat id="Energy" label="ENERGY" showLabel="true"
+          x="102" y="-78" size="19" labelSize="9"
+          color="#EC7B04" barWidth="66" barHeight="4"
+          barBackgroundSprite="bar_background.png" barFillSprite="bar_fill.png"
+          suffix="/{max}" />
+
+    <Stat id="Hydration" label="HYDRATION" showLabel="true"
+          x="102" y="-121" size="19" labelSize="9"
+          color="#0077C1" barWidth="66" barHeight="4"
+          barBackgroundSprite="bar_background.png" barFillSprite="bar_fill.png"
+          suffix="/{max}" />
+
+    <Status show="true" x="0" y="-168" size="11" />
+  </Vitals>
+
+  <Icons enabled="true" />
+
+  <IconColors
+      weapon="#FFFFFF"
+      assaultRifle="#FFFFFF"
+      assaultCarbine="#FFFFFF"
+      sniper="#FFFFFF"
+      smg="#FFFFFF"
+      lmg="#FFFFFF"
+      pistol="#FFFFFF"
+      shotgun="#FFFFFF"
+      knife="#FFFFFF"
+      ammo="#FFFFFF"
+      smallAmmo="#FFFFFF"
+      mediumAmmo="#FFFFFF"
+      largeAmmo="#FFFFFF"
+      grenade="#FFFFFF"
+      stance="#FFFFFF"
+      movement="#FFFFFF"
+      movementRun="#FFFFFF"
+      lightBleed="#FFFFFF"
+      heavyBleed="#FFFFFF"
+      fracture="#FFFFFF"
+      pain="#FFFFFF" />
+
+  <Effects show="true" anchor="TopLeft"
+          x="240" y="-40" iconSize="20"
+          rowHeight="22" fontSize="12"
+          colorOverlay="false"
+          lightBleedIcon="bleed_light.png"
+          heavyBleedIcon="bleed_heavy.png"
+          freshWoundIcon="freshWound.png"
+          fractureIcon="fracture.png"
+          painIcon="pain.png"
+          handsTremorIcon="handsTremor.png"
+          mildMusclePainIcon="mildMusclePain.png"
+          severeMusclePainIcon="severeMusclePain.png"
+          concussionIcon="concussion.png"
+          tunnelVisionIcon="tunnelVision.png"
+          dehydrationIcon="dehydration.png"
+          energyFatigueIcon="energyFatigue.png"
+          overweightIcon="overweight.png"
+          criticalOverweightIcon="criticalOverweight.png"
+          fatigueIcon="fatigue.png"
+          stunIcon="stun.png"
+          flashIcon="flash.png"
+          painkillersIcon="painkillers.png"
+          buffIcon="buff.png"
+          debuffIcon="debuff.png"
+          berserkIcon="berserk.png"
+          poisoningIcon="poisoning.png"
+          panicAttackIcon="panicAttack.png" />
+
+  <!-- The shared equipment row offsets default to -60; this keeps the cards inside the screen. -->
+  <Equipment show="true" anchor="BottomRight"
+             x="-20" y="80" cards="true"
+             weaponPanelWidth="180" ammoPanelWidth="80"
+             grenadePanelWidth="50" panelHeight="46"
+             panelGap="1" iconSize="40"
+             weaponTextAlign="Right" ammoTextAlign="Right" grenadeTextAlign="Right"
+             weaponIconSize="50" ammoIconSize="36"
+             grenadeIconSize="36" rowHeight="42"
+             fontSize="14" ammoSize="20"
+             weaponIcon="weapon.png" ammoIcon="ammo.png"
+             grenadeIcon="grenade.png" grenadeLabel="GRENADES"
+             assaultRifleIcon="weapon_assault_rifle.png"
+             assaultCarbineIcon="weapon_assault_carbine.png"
+             sniperIcon="weapon_sniper.png"
+             shotgunIcon="weapon_shotgun.png"
+             smgIcon="weapon_smg.png"
+             lmgIcon="weapon_lmg.png"
+             pistolIcon="weapon_pistol.png"
+             knifeIcon="weapon_knife.png"
+             smallAmmoIcon="ammo_small.png"
+             mediumAmmoIcon="ammo_medium.png"
+             largeAmmoIcon="ammo_large.png" />
+
+  <Movement show="true" anchor="BottomLeft"
+            x="20" y="40" iconSize="18"
+            stanceIconSize="45" speedIconSize="20"
+            fontSize="12" showStanceText="false"
+            showSpeedText="false" stanceX="0" stanceY="40"
+            speedX="42" speedY="40" staminaX="50"
+            staminaY="18" staminaIconX="75" staminaIconY="18"
+            staminaIconSize="23" staminaBarX="0" staminaBarY="22"
+            handsStaminaX="50" handsStaminaY="-16"
+            handsStaminaIcon="hand_stamina.png" handsStaminaIconX="75"
+            handsStaminaIconY="-16" handsStaminaIconSize="23"
+            staminaBarWidth="120" staminaBarHeight="5"
+            staminaBarBackgroundSprite="bar_background.png" staminaBarFillSprite="bar_fill.png"
+            handStaminaBarX="0" handStaminaBarY="-18"	
+            stanceIcon="stance_stand.png"
+            crouchIcon="stance_crouch.png"
+            proneIcon="stance_prone.png"
+            sprintIcon="stance_sprint.png"
+            staminaIcon="stamina.png"
+            speedIcon0="volume_0.png"
+            speedIcon1="volume_1.png"
+            speedIcon2="volume_2.png"
+            speedIcon3="volume_4.png"
+            speedIcon4="volume_5.png"
+            speedIcon5="volume_5.png" />
+
+  <HitMarker show="true" style="X"
+             image="Icons/hit_marker_x.png" crossImage="Icons/hit_marker_cross.png"
+             thickness="1" length="5" gap="4"
+             duration="0.25" punch="1.08"
+             color="#DCE0D9"
+             headshotColor="#EEB30D"
+             killColor="#A83232" />
+
+  <DamageNumbers show="true" size="18" life="0.9" rise="55" spawnRise="50"/>
+
+  <DamageDirection show="true" image="Icons/damage_direction.png" radius="190"
+                   length="55" life="1.5" color="#A83232" />
+
+  <KillFeed show="true" anchor="TopRight"
+            x="-20" y="-120" max="3" life="5"
+            size="14" spacing="2" grow="Down"
+            format="{name}  {c:#858A82}{weapon}  {distance}m  {part}{/c}"
+            headshotFormat="{name}  {c:#858A82}{weapon}  {distance}m{/c}  {c:#D6B75A}HEADSHOT{/c}" />
+</Theme>
