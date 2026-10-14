@@ -28,6 +28,11 @@ I plan to create detailed documentation in github for each configuration paramet
 ![Colorful Theme 1](assets/Screenshot_HudBreakout_Colorfu.jpg)
 ![Colorful Theme 2](assets/Screenshot_HudBreakout_Colorful2.jpg)
 
+### Profiler Verdict: 
+Measured with Mod Profiler:
+HudBreakout maintains an average overhead of just 0.03 ms per frame, accounting for only 0.4% of profiled frame time. With a recorded maximum of 0.05 ms and a stable performance trend, it demonstrates minimal CPU overhead in the tested session.
+![profiler](assets/Profiler.jpg)
+
 ## Building and Installing
 
 Running `dotnet build -c Release` creates `dist/HudBreakout-1.0.0.zip`. This contains the plugin DLL and themes inside the `BepInEx/plugins/HudBreakout` folder, ready to extract straight into your SPT directory. If you have your SPT directory configured in the project, it auto-deploys the plugin there during the build.
