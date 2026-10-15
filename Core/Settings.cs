@@ -40,21 +40,27 @@ namespace HudBreakout
         public static void Bind(ConfigFile cfg, string themesDir, string localizationDir)
         {
             TextLocalization.Initialize(localizationDir, "Auto");
+            if (cfg.TryGetEntry<string>(new ConfigDefinition(Main, "Language"), out var savedLanguage))
+                TextLocalization.SetLanguage(savedLanguage.Value);
+
             Language = cfg.Bind(Main, "Language", "Auto", new ConfigDescription(
                 TextLocalization.Get("settings.language", "HUD language. Auto follows the operating system language."),
-                new AcceptableValueList<string>(TextLocalization.AvailableLanguages)));
+                new AcceptableValueList<string>(TextLocalization.AvailableLanguages),
+                DisplayName("language", "Language")));
             TextLocalization.SetLanguage(Language.Value);
 
             var themes = GetThemeNames(themesDir);
             if (themes.Length == 0) themes = new[] { "Minimal", "TextOnly" };
 
             ThemeName = cfg.Bind(Main, "Theme", "Minimal",
-                new ConfigDescription(Description("theme", "HUD theme folder. Changes apply instantly."),
+                EntryDescription("theme", "Theme", "theme", "HUD theme folder. Changes apply instantly.",
                     new AcceptableValueList<string>(themes)));
             ReloadKey = cfg.Bind(Main, "Reload Theme Key", new KeyboardShortcut(KeyCode.F9),
-                Description("reload_theme_key", "Reloads theme.xml without restarting the game."));
+                EntryDescription("reload_theme_key", "Reload Theme Key", "reload_theme_key",
+                    "Reloads theme.xml without restarting the game."));
             PreviewKey = cfg.Bind(Main, "Preview HUD Key", new KeyboardShortcut(KeyCode.F10),
-                Description("preview_hud_key", "Shows a sample of all HUD panels for five seconds."));
+                EntryDescription("preview_hud_key", "Preview HUD Key", "preview_hud_key",
+                    "Shows a sample of all HUD panels for five seconds."));
 
             ShowAllHud = Toggle(cfg, "Show All HUD", "Master toggle for every HudBreakout panel.");
             ShowVitals = Toggle(cfg, "Show Vitals Panel", "Body silhouette, health, energy and hydration.");
@@ -78,13 +84,16 @@ namespace HudBreakout
 
             HitMarkerThickness = cfg.Bind(Main, "Hit Marker Thickness", 0f, new ConfigDescription(
                 Description("hit_marker_thickness", "Line thickness in pixels. 0 uses the theme value."),
-                new AcceptableValueRange<float>(0f, 8f)));
+                new AcceptableValueRange<float>(0f, 8f),
+                DisplayName("hit_marker_thickness", "Hit Marker Thickness")));
             Scale = cfg.Bind(Main, "HUD Scale", 1f, new ConfigDescription(
                 Description("hud_scale", "Overall HUD scale."),
-                new AcceptableValueRange<float>(0.5f, 2f)));
+                new AcceptableValueRange<float>(0.5f, 2f),
+                DisplayName("hud_scale", "HUD Scale")));
             Opacity = cfg.Bind(Main, "HUD Opacity", 1f, new ConfigDescription(
                 Description("hud_opacity", "Opacity multiplier for the whole HUD."),
-                new AcceptableValueRange<float>(0.2f, 1f)));
+                new AcceptableValueRange<float>(0.2f, 1f),
+                DisplayName("hud_opacity", "HUD Opacity")));
 
             // whole panels
             Pair(cfg, Layout, "Vitals", "the entire vitals HUD", out VitalsX, out VitalsY);
@@ -132,7 +141,9 @@ namespace HudBreakout
 
         private static ConfigEntry<bool> Toggle(ConfigFile cfg, string key, string description)
         {
-            return cfg.Bind(Main, key, true, Description(Slug(key), description));
+            var nameKey = Slug(key);
+            return cfg.Bind(Main, key, true,
+                EntryDescription(nameKey, key, nameKey, description));
         }
 
         // X/Y offset pair, "label X" and "label Y" in the config
@@ -140,24 +151,44 @@ namespace HudBreakout
             out ConfigEntry<int> x, out ConfigEntry<int> y, int defaultY = 0)
         {
             var localizedWhat = TextLocalization.Get("settings.item." + Slug(label), what);
-            x = Offset(cfg, category, label + " X",
+            var xName = TextLocalization.Get("settings.name.offset_x", "{item} X")
+                .Replace("{item}", localizedWhat);
+            var yName = TextLocalization.Get("settings.name.offset_y", "{item} Y")
+                .Replace("{item}", localizedWhat);
+            x = Offset(cfg, category, label + " X", xName,
                 Description("offset_x", "Move {item} horizontally.").Replace("{item}", localizedWhat), 0);
-            y = Offset(cfg, category, label + " Y",
+            y = Offset(cfg, category, label + " Y", yName,
                 Description("offset_y", "Move {item} vertically.").Replace("{item}", localizedWhat), defaultY);
         }
 
-        private static ConfigEntry<int> Offset(ConfigFile cfg, string category, string key, string description,
-            int defaultValue)
+        private static ConfigEntry<int> Offset(ConfigFile cfg, string category, string key, string displayName,
+            string description, int defaultValue)
         {
             return cfg.Bind(category, key, defaultValue, new ConfigDescription(
                 description + " " + Description("offset_units",
                     "Whole-pixel offset from the theme's XML position, in HUD reference pixels."),
-                new AcceptableValueRange<int>(-2000, 2000)));
+                new AcceptableValueRange<int>(-2000, 2000),
+                new ConfigurationManagerAttributes { DispName = displayName }));
         }
 
         private static string Description(string key, string fallback)
         {
             return TextLocalization.Get("settings." + key, fallback);
+        }
+
+        private static ConfigDescription EntryDescription(string nameKey, string fallbackName,
+            string descriptionKey, string fallbackDescription, AcceptableValueBase acceptableValues = null)
+        {
+            return new ConfigDescription(Description(descriptionKey, fallbackDescription), acceptableValues,
+                DisplayName(nameKey, fallbackName));
+        }
+
+        private static ConfigurationManagerAttributes DisplayName(string nameKey, string fallbackName)
+        {
+            return new ConfigurationManagerAttributes
+            {
+                DispName = TextLocalization.Get("settings.name." + nameKey, fallbackName)
+            };
         }
 
         private static string Slug(string value)
