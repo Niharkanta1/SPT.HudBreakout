@@ -8,6 +8,7 @@
   <Text key="settings.name.show_all_hud">显示全部 HUD</Text>
   <Text key="settings.name.show_vitals_panel">显示状态面板</Text>
   <Text key="settings.name.show_hit_marker">显示命中标记</Text>
+  <Text key="settings.name.play_hit_sounds">播放命中音效</Text>
   <Text key="settings.name.show_damage_numbers">显示伤害数字</Text>
   <Text key="settings.name.show_kill_feed">显示击杀信息</Text>
   <Text key="settings.name.show_damage_direction">显示伤害方向</Text>
@@ -54,6 +55,7 @@
   <Text key="settings.show_stamina_bars">显示腿部/身体和手部耐力条。</Text>
   <Text key="settings.hit_marker_thickness">线条像素粗细。0 使用主题设置。</Text>
   <Text key="settings.hit_sound_volume">命中音效的音量倍增器。</Text>
+  <Text key="settings.play_hit_sounds">播放命中音效。</Text>
   <Text key="settings.hud_scale">HUD 整体缩放比例。</Text>
   <Text key="settings.hud_opacity">整个 HUD 的不透明度。</Text>
   <Text key="settings.offset_x">水平移动{item}。</Text>
