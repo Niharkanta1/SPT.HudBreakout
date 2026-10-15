@@ -12,6 +12,8 @@ namespace HudBreakout
         internal static ManualLogSource Log;
         internal static string ThemesDir;
         internal static string LocalizationDir;
+        internal static string AudioDir;
+        internal static HitAudioPlayer HitAudio { get; private set; }
 
         private GameObject _hudRoot;
         private Harmony _harmony;
@@ -35,9 +37,12 @@ namespace HudBreakout
             var pluginDirectory = Path.GetDirectoryName(Info.Location);
             ThemesDir = Path.Combine(pluginDirectory, "Themes");
             LocalizationDir = Path.Combine(pluginDirectory, "Localization");
+            AudioDir = Path.Combine(pluginDirectory, "Audio");
             Config.SaveOnConfigSet = true;
             FontHelper.Load();
             Settings.Bind(Config, ThemesDir, LocalizationDir);
+            HitAudio = gameObject.AddComponent<HitAudioPlayer>();
+            HitAudio.Initialize(AudioDir);
             _harmony = new Harmony("com.deadwolf.hudbreakout");
             _harmony.PatchAll(typeof(HudBreakoutPlugin).Assembly);
             CreateHudRoot();
@@ -47,6 +52,7 @@ namespace HudBreakout
         {
             if (_harmony != null) _harmony.UnpatchSelf();
             if (_hudRoot != null) Destroy(_hudRoot);
+            HitAudio = null;
             UiKit.ReleaseOwnedResources();
         }
 

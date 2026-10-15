@@ -9,11 +9,12 @@ namespace HudBreakout
     internal static class Settings
     {
         public static ConfigEntry<bool> ShowVitals, ShowHitMarker, ShowDamageNumbers, ShowKillFeed, ShowDamageDirection;
+        public static ConfigEntry<bool> PlayHitSounds;
         public static ConfigEntry<bool> ShowSilhouette, ShowHealthLabel, ShowHydrationLabel, ShowEnergyLabel;
         public static ConfigEntry<bool> ShowAllHud, ShowEffects, ShowEquipment, ShowMovement;
         public static ConfigEntry<bool> ShowStance, ShowSpeedIndicator, ShowWeaponName, ShowAmmo, ShowGrenades;
         public static ConfigEntry<bool> ShowStaminaBars;
-        public static ConfigEntry<float> Scale, Opacity, HitMarkerThickness;
+        public static ConfigEntry<float> Scale, Opacity, HitMarkerThickness, HitSoundVolume;
         public static ConfigEntry<string> ThemeName, Language;
         public static ConfigEntry<KeyboardShortcut> ReloadKey, PreviewKey;
 
@@ -59,6 +60,7 @@ namespace HudBreakout
             ShowAllHud = Toggle(cfg, "Show All HUD", "Master toggle for every HudBreakout panel.");
             ShowVitals = Toggle(cfg, "Show Vitals Panel", "Body silhouette, health, energy and hydration.");
             ShowHitMarker = Toggle(cfg, "Show Hit Marker", "Marker when you hit an enemy.");
+            PlayHitSounds = Toggle(cfg, "Play Hit Sounds", "Play hit, headshot, and kill audio cues.");
             ShowDamageNumbers = Toggle(cfg, "Show Damage Numbers", "Floating damage numbers at the impact point.");
             ShowKillFeed = Toggle(cfg, "Show Kill Feed", "Kill lines with weapon, distance and body part.");
             ShowDamageDirection = Toggle(cfg, "Show Damage Direction", "Indicators pointing to where damage came from.");
@@ -79,6 +81,9 @@ namespace HudBreakout
             HitMarkerThickness = cfg.Bind(Main, "Hit Marker Thickness", 0f, new ConfigDescription(
                 Description("hit_marker_thickness", "Line thickness in pixels. 0 uses the theme value."),
                 new AcceptableValueRange<float>(0f, 8f)));
+            HitSoundVolume = cfg.Bind(Main, "Hit Sound Volume", 1f, new ConfigDescription(
+                Description("hit_sound_volume", "Hit audio volume multiplier. Values above 1 increase the volume."),
+                new AcceptableValueRange<float>(0f, 2f)));
             Scale = cfg.Bind(Main, "HUD Scale", 1f, new ConfigDescription(
                 Description("hud_scale", "Overall HUD scale."),
                 new AcceptableValueRange<float>(0.5f, 2f)));

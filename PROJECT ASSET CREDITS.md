@@ -32,3 +32,11 @@ HudBreakout uses Escape from Tarkov's built-in Bender Normal TextMeshPro
 asset at runtime and does not bundle third-party font files.
 All rights to that game-provided asset remain with its respective
 copyright holders.
+
+3. THIRD-PARTY AUDIO
+
+The following sound effects are sourced from freesound.com:
+
+- Audio/bullet-hit.wav
+- Audio/bullet-headshot.wav
+- Audio/bullet-kill.wav

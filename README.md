@@ -37,6 +37,8 @@ HudBreakout maintains an average overhead of just 0.03 ms per frame, accounting 
 
 Running `dotnet build -c Release` creates `dist/HudBreakout-1.0.0.zip`. This contains the plugin DLL and themes inside the `BepInEx/plugins/HudBreakout` folder, ready to extract straight into your SPT directory. If you have your SPT directory configured in the project, it auto-deploys the plugin there during the build.
 
+The package also includes the `Audio` folder used for hit sounds. On a successful hit, HudBreakout plays `bullet-hit.wav`; headshots use `bullet-headshot.wav`, and lethal hits use `bullet-kill.wav` (which takes priority on a lethal headshot).
+
 Theme coordinates use a 1920x1080 canvas. Positive X moves right, and positive Y moves up from your selected anchor. Colors take standard hex codes (`#RRGGBB` or `#RRGGBBAA`). Everything in the XML is optional—if you leave an attribute out, the HUD just falls back to the default.
 
 ### Silhouette Artwork
@@ -99,6 +101,8 @@ Weapon name, ammunition count, and grenade count use the same font size from the
 ### Hit Marker
 
 The hit marker and damage direction indicators are fully customizable. Set `image` and `crossImage` on `<HitMarker>` to swap out the art, and choose between `X` or `Cross` styles. You can adjust the thickness, gap, and duration in the XML. Overriding the **Hit Marker Thickness** in the F12 menu above zero will bypass the XML setting.
+
+Hit audio clips are loaded from `BepInEx/plugins/HudBreakout/Audio/` once the game's audio system is ready, and reloaded when entering or leaving a raid or when the audio configuration changes. Keep all three WAV files in that folder for hit, headshot, and kill sounds. Press F10 to play a random loaded clip; in a raid this also opens the HUD preview, while outside a raid it tests audio only. Use **Play Hit Sounds** in the BepInEx config to disable or re-enable hit sounds and preview audio (on by default), and adjust **Hit Sound Volume** from 0 to 2. The default is 1; values above 1 amplify the sounds.
 
 The shipped `Themes/Minimal/theme.xml` is fully documented and shows exactly how everything fits together. It's the best starting point for creating your own layout.
 
