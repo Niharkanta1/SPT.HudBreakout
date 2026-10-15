@@ -88,13 +88,17 @@ namespace HudBreakout
                 Description("hit_marker_thickness", "Line thickness in pixels. 0 uses the theme value."),
                 new AcceptableValueRange<float>(0f, 8f),
                 DisplayName("hit_marker_thickness", "Hit Marker Thickness")));
+
             HitSoundVolume = cfg.Bind(Main, "Hit Sound Volume", 1f, new ConfigDescription(
                 Description("hit_sound_volume", "Hit audio volume multiplier. Values above 1 increase the volume."),
-                new AcceptableValueRange<float>(0f, 2f)));
+                new AcceptableValueRange<float>(0f, 2f),
+                DisplayName("hit_sound_volume", "Hit Sound Volume")));
+
             Scale = cfg.Bind(Main, "HUD Scale", 1f, new ConfigDescription(
                 Description("hud_scale", "Overall HUD scale."),
                 new AcceptableValueRange<float>(0.5f, 2f),
                 DisplayName("hud_scale", "HUD Scale")));
+
             Opacity = cfg.Bind(Main, "HUD Opacity", 1f, new ConfigDescription(
                 Description("hud_opacity", "Opacity multiplier for the whole HUD."),
                 new AcceptableValueRange<float>(0.2f, 1f),

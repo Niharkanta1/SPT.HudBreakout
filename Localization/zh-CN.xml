@@ -25,6 +25,7 @@
   <Text key="settings.name.show_grenades">显示手榴弹</Text>
   <Text key="settings.name.show_stamina_bars">显示耐力条</Text>
   <Text key="settings.name.hit_marker_thickness">命中标记粗细</Text>
+  <Text key="settings.name.hit_sound_volume">命中音效音量</Text>
   <Text key="settings.name.hud_scale">HUD 缩放</Text>
   <Text key="settings.name.hud_opacity">HUD 不透明度</Text>
   <Text key="settings.name.offset_x">{item} X</Text>
@@ -52,6 +53,7 @@
   <Text key="settings.show_grenades">显示手榴弹图标和数量。</Text>
   <Text key="settings.show_stamina_bars">显示腿部/身体和手部耐力条。</Text>
   <Text key="settings.hit_marker_thickness">线条像素粗细。0 使用主题设置。</Text>
+  <Text key="settings.hit_sound_volume">命中音效的音量倍增器。</Text>
   <Text key="settings.hud_scale">HUD 整体缩放比例。</Text>
   <Text key="settings.hud_opacity">整个 HUD 的不透明度。</Text>
   <Text key="settings.offset_x">水平移动{item}。</Text>
