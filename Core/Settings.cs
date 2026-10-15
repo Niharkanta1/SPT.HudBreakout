@@ -64,7 +64,7 @@ namespace HudBreakout
             ShowAllHud = Toggle(cfg, "Show All HUD", "settings.name.show_all_hud", "settings.show_all_hud");
             ShowVitals = Toggle(cfg, "Show Vitals Panel", "settings.name.show_vitals_panel", "settings.show_vitals_panel");
             ShowHitMarker = Toggle(cfg, "Show Hit Marker", "settings.name.show_hit_marker", "settings.show_hit_marker");
-            PlayHitSounds = Toggle(cfg, "Play Hit Sounds", "Play hit, headshot, and kill audio cues.");
+            PlayHitSounds = Toggle(cfg, "Play Hit Sounds", "settings.name.play_hit_sounds", "settings.play_hit_sounds");
             ShowDamageNumbers = Toggle(cfg, "Show Damage Numbers", "settings.name.show_damage_numbers", "settings.show_damage_numbers");
             ShowKillFeed = Toggle(cfg, "Show Kill Feed", "settings.name.show_kill_feed", "settings.show_kill_feed");
             ShowDamageDirection = Toggle(cfg, "Show Damage Direction", "settings.name.show_damage_direction", "settings.show_damage_direction");
@@ -88,9 +88,9 @@ namespace HudBreakout
                 DisplayName("settings.name.hit_marker_thickness")));
 
             HitSoundVolume = cfg.Bind(Main, "Hit Sound Volume", 1f, new ConfigDescription(
-                Description("hit_sound_volume", "Hit audio volume multiplier. Values above 1 increase the volume."),
+                TextLocalization.Get("settings.hit_sound_volume"),
                 new AcceptableValueRange<float>(0f, 2f),
-                DisplayName("hit_sound_volume", "Hit Sound Volume")));
+                DisplayName("settings.name.hit_sound_volume")));
 
             Scale = cfg.Bind(Main, "HUD Scale", 1f, new ConfigDescription(
                 TextLocalization.Get("settings.hud_scale"),

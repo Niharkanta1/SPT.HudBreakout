@@ -35,7 +35,7 @@
   <Text key="settings.show_all_hud">Master toggle for every HudBreakout panel.</Text>
   <Text key="settings.show_vitals_panel">Body silhouette, health, energy and hydration.</Text>
   <Text key="settings.show_hit_marker">Marker when you hit an enemy.</Text>
-  <Text key="settings.play_hit_sounds">Play hit sounds when taking damage.</Text>
+  <Text key="settings.play_hit_sounds">Play hit, headshot, and kill audio cues.</Text>
   <Text key="settings.show_damage_numbers">Floating damage numbers at the impact point.</Text>
   <Text key="settings.show_kill_feed">Kill lines with weapon, distance and body part.</Text>
   <Text key="settings.show_damage_direction">Indicators pointing to where damage came from.</Text>
