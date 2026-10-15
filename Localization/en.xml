@@ -1,6 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Localization>
   <Text key="settings.language">HUD language. Auto follows the operating system display language.</Text>
+  <Text key="settings.name.language">Language</Text>
+  <Text key="settings.name.theme">Theme</Text>
+  <Text key="settings.name.reload_theme_key">Reload Theme Key</Text>
+  <Text key="settings.name.preview_hud_key">Preview HUD Key</Text>
+  <Text key="settings.name.show_all_hud">Show All HUD</Text>
+  <Text key="settings.name.show_vitals_panel">Show Vitals Panel</Text>
+  <Text key="settings.name.show_hit_marker">Show Hit Marker</Text>
+  <Text key="settings.name.show_damage_numbers">Show Damage Numbers</Text>
+  <Text key="settings.name.show_kill_feed">Show Kill Feed</Text>
+  <Text key="settings.name.show_damage_direction">Show Damage Direction</Text>
+  <Text key="settings.name.show_silhouette">Show Silhouette</Text>
+  <Text key="settings.name.show_health_label">Show Health Label</Text>
+  <Text key="settings.name.show_hydration_label">Show Hydration Label</Text>
+  <Text key="settings.name.show_energy_label">Show Energy Label</Text>
+  <Text key="settings.name.show_effects">Show Effects</Text>
+  <Text key="settings.name.show_equipment">Show Equipment</Text>
+  <Text key="settings.name.show_movement">Show Movement</Text>
+  <Text key="settings.name.show_stance">Show Stance</Text>
+  <Text key="settings.name.show_volume_indicator">Show Volume Indicator</Text>
+  <Text key="settings.name.show_weapon_name">Show Weapon Name</Text>
+  <Text key="settings.name.show_ammo">Show Ammo</Text>
+  <Text key="settings.name.show_grenades">Show Grenades</Text>
+  <Text key="settings.name.show_stamina_bars">Show Stamina Bars</Text>
+  <Text key="settings.name.hit_marker_thickness">Hit Marker Thickness</Text>
+  <Text key="settings.name.hud_scale">HUD Scale</Text>
+  <Text key="settings.name.hud_opacity">HUD Opacity</Text>
+  <Text key="settings.name.offset_x">{item} X</Text>
+  <Text key="settings.name.offset_y">{item} Y</Text>
   <Text key="settings.theme">HUD theme folder. Changes apply instantly.</Text>
   <Text key="settings.reload_theme_key">Reloads theme.xml without restarting the game.</Text>
   <Text key="settings.preview_hud_key">Shows a sample of all HUD panels for five seconds.</Text>

@@ -1,6 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Localization>
   <Text key="settings.language">HUD 界面语言。自动模式使用操作系统显示语言。</Text>
+  <Text key="settings.name.language">语言</Text>
+  <Text key="settings.name.theme">主题</Text>
+  <Text key="settings.name.reload_theme_key">重新加载主题快捷键</Text>
+  <Text key="settings.name.preview_hud_key">HUD 预览快捷键</Text>
+  <Text key="settings.name.show_all_hud">显示全部 HUD</Text>
+  <Text key="settings.name.show_vitals_panel">显示状态面板</Text>
+  <Text key="settings.name.show_hit_marker">显示命中标记</Text>
+  <Text key="settings.name.show_damage_numbers">显示伤害数字</Text>
+  <Text key="settings.name.show_kill_feed">显示击杀信息</Text>
+  <Text key="settings.name.show_damage_direction">显示伤害方向</Text>
+  <Text key="settings.name.show_silhouette">显示身体轮廓</Text>
+  <Text key="settings.name.show_health_label">显示生命值标签</Text>
+  <Text key="settings.name.show_hydration_label">显示水分标签</Text>
+  <Text key="settings.name.show_energy_label">显示能量标签</Text>
+  <Text key="settings.name.show_effects">显示状态效果</Text>
+  <Text key="settings.name.show_equipment">显示装备</Text>
+  <Text key="settings.name.show_movement">显示移动信息</Text>
+  <Text key="settings.name.show_stance">显示姿势</Text>
+  <Text key="settings.name.show_volume_indicator">显示移动音量指示器</Text>
+  <Text key="settings.name.show_weapon_name">显示武器名称</Text>
+  <Text key="settings.name.show_ammo">显示弹药信息</Text>
+  <Text key="settings.name.show_grenades">显示手榴弹</Text>
+  <Text key="settings.name.show_stamina_bars">显示耐力条</Text>
+  <Text key="settings.name.hit_marker_thickness">命中标记粗细</Text>
+  <Text key="settings.name.hud_scale">HUD 缩放</Text>
+  <Text key="settings.name.hud_opacity">HUD 不透明度</Text>
+  <Text key="settings.name.offset_x">{item} X</Text>
+  <Text key="settings.name.offset_y">{item} Y</Text>
   <Text key="settings.theme">HUD 主题文件夹。更改立即生效。</Text>
   <Text key="settings.reload_theme_key">无需重启游戏即可重新加载 theme.xml。</Text>
   <Text key="settings.preview_hud_key">显示所有 HUD 面板的示例，持续五秒。</Text>

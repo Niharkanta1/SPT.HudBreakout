@@ -1,6 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Localization>
   <Text key="settings.language">Язык интерфейса HUD. Авто использует язык интерфейса операционной системы.</Text>
+  <Text key="settings.name.language">Язык</Text>
+  <Text key="settings.name.theme">Тема</Text>
+  <Text key="settings.name.reload_theme_key">Клавиша перезагрузки темы</Text>
+  <Text key="settings.name.preview_hud_key">Клавиша предпросмотра HUD</Text>
+  <Text key="settings.name.show_all_hud">Показывать весь HUD</Text>
+  <Text key="settings.name.show_vitals_panel">Показывать показатели</Text>
+  <Text key="settings.name.show_hit_marker">Показывать маркер попадания</Text>
+  <Text key="settings.name.show_damage_numbers">Показывать числа урона</Text>
+  <Text key="settings.name.show_kill_feed">Показывать ленту убийств</Text>
+  <Text key="settings.name.show_damage_direction">Показывать направление урона</Text>
+  <Text key="settings.name.show_silhouette">Показывать силуэт</Text>
+  <Text key="settings.name.show_health_label">Показывать здоровье</Text>
+  <Text key="settings.name.show_hydration_label">Показывать гидратацию</Text>
+  <Text key="settings.name.show_energy_label">Показывать энергию</Text>
+  <Text key="settings.name.show_effects">Показывать эффекты</Text>
+  <Text key="settings.name.show_equipment">Показывать снаряжение</Text>
+  <Text key="settings.name.show_movement">Показывать движение</Text>
+  <Text key="settings.name.show_stance">Показывать стойку</Text>
+  <Text key="settings.name.show_volume_indicator">Показывать громкость движения</Text>
+  <Text key="settings.name.show_weapon_name">Показывать название оружия</Text>
+  <Text key="settings.name.show_ammo">Показывать боеприпасы</Text>
+  <Text key="settings.name.show_grenades">Показывать гранаты</Text>
+  <Text key="settings.name.show_stamina_bars">Показывать шкалы выносливости</Text>
+  <Text key="settings.name.hit_marker_thickness">Толщина маркера попадания</Text>
+  <Text key="settings.name.hud_scale">Масштаб HUD</Text>
+  <Text key="settings.name.hud_opacity">Непрозрачность HUD</Text>
+  <Text key="settings.name.offset_x">{item} X</Text>
+  <Text key="settings.name.offset_y">{item} Y</Text>
   <Text key="settings.theme">Папка темы HUD. Изменения применяются сразу.</Text>
   <Text key="settings.reload_theme_key">Перезагрузить theme.xml без перезапуска игры.</Text>
   <Text key="settings.preview_hud_key">Показать пример всех панелей HUD на пять секунд.</Text>
