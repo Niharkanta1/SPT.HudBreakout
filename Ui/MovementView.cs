@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using TMPro;
 using UnityEngine;
@@ -139,18 +140,23 @@ namespace HudBreakout
             {
                 var barWidth = _settings.GetFloat("staminaBarWidth", 100);
                 var barHeight = _settings.GetFloat("staminaBarHeight", 6);
+                var fillOrigin = _settings.GetString("staminaBarFillDirection", "LeftToRight")
+                    .Equals("RightToLeft", StringComparison.OrdinalIgnoreCase)
+                    ? Image.OriginHorizontal.Right
+                    : Image.OriginHorizontal.Left;
 
                 _staminaBarBackground = Bar("StaminaBack", _staminaBarPosition, barWidth, barHeight,
-                    _staminaColor, out _staminaFill);
+                    _staminaColor, fillOrigin, out _staminaFill);
                 _handsStaminaBarBackground = Bar("HandsStaminaBack", _handsBarPosition, barWidth, barHeight,
-                    _handStaminaColor, out _handsStaminaFill);
+                    _handStaminaColor, fillOrigin, out _handsStaminaFill);
             }
 
             ApplyFeatureToggles();
             ApplyElementPositions();
         }
 
-        private Image Bar(string name, Vector2 position, float width, float height, Color fillColor, out Image fill)
+        private Image Bar(string name, Vector2 position, float width, float height, Color fillColor,
+            Image.OriginHorizontal fillOrigin, out Image fill)
         {
             var backgroundSprite = _theme.LoadThemeSprite(
                 _settings.GetString("staminaBarBackgroundSprite", "bar_background.png"));
@@ -170,7 +176,7 @@ namespace HudBreakout
             UiKit.StretchToFillParent(fill.rectTransform);
             fill.type = Image.Type.Filled;
             fill.fillMethod = Image.FillMethod.Horizontal;
-            fill.fillOrigin = (int)Image.OriginHorizontal.Left;
+            fill.fillOrigin = (int)fillOrigin;
             return background;
         }
 

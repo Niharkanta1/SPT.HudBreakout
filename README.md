@@ -57,7 +57,7 @@ The HUD tracks your status organically:
 
 You can toggle these sections via the F12 menu. Stamina labels stay hidden, showing only the current/max numbers next to the slim bars. You can even move the stamina bars independently of their text using the F12 X/Y sliders.
 
-Stamina and vitals bars use PNG background and fill sprites. Set `staminaBarBackgroundSprite` and `staminaBarFillSprite` on `<Movement>`; both stamina bars share `staminaBarWidth` and `staminaBarHeight`, while their fill colors come from `IconColors` (`stamina` and `handsStamina`). For each `<Stat>`, use `barBackgroundSprite` and `barFillSprite` with `barWidth` and `barHeight`; `color` controls that stat's fill. The shipped themes use `bar_background.png` and `bar_fill.png` from `Themes/Minimal/` as fallbacks. Put custom sprite files in your theme folder beside `theme.xml`.
+Stamina and vitals bars use PNG background and fill sprites. Set `staminaBarBackgroundSprite` and `staminaBarFillSprite` on `<Movement>`; both stamina bars share `staminaBarWidth` and `staminaBarHeight`, while their fill colors come from `IconColors` (`stamina` and `handsStamina`). Set `staminaBarFillDirection="RightToLeft"` to make both stamina bars fill from right to left; the default is `LeftToRight`. For each `<Stat>`, use `barBackgroundSprite` and `barFillSprite` with `barWidth` and `barHeight`; `color` controls that stat's fill. The shipped themes use `bar_background.png` and `bar_fill.png` from `Themes/Minimal/` as fallbacks. Put custom sprite files in your theme folder beside `theme.xml`.
 
 ### Icons and Fallbacks
 
