@@ -27,6 +27,8 @@ I plan to create detailed documentation in github for each configuration paramet
 
 ![Colorful Theme 1](Assets/Screenshot_HudBreakout_Colorfu2.jpg)
 
+[![Watch the video](https://youtube.com)](https://www.youtube.com/watch?v=tgk1i1MXBjY)
+
 ### Profiler Verdict:
 
 Measured with Mod Profiler:
