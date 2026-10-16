@@ -1,4 +1,16 @@
-﻿<Theme name="TarkovMinimal" shadow="true">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+  HudBreakout theme. Copy this folder, rename it, set "Theme" in the BepInEx config (F12)
+  and press the reload key (default F9) in game to see changes instantly.
+
+  Every attribute is optional - missing values fall back to defaults.
+  Positions: x/y are pixels (1920x1080 reference) from the element's anchor; +x right, +y up.
+  Anchors: TopLeft TopCenter TopRight MiddleLeft Center MiddleRight BottomLeft BottomCenter BottomRight
+  Colors: #RRGGBB or #RRGGBBAA.
+  Set shadow="false" on <Theme> to disable text shadows.
+  Text markup in formats: {c:#hex}..{/c} colour, {b}..{/b}, {i}..{/i}, {size:N}..{/size}
+-->
+<Theme name="TarkovMinimal" shadow="true">
 
   <!-- Escape from Tarkov inspired military palette -->
   <Colors
@@ -12,6 +24,8 @@
       lost="#493B35" />
 
   <Vitals show="true" anchor="TopLeft" x="20" y="-20" scale="1">
+    <!-- Replace the transparent PNGs to change the silhouette art. All images use the same canvas. -->
+    <!-- This art stores each active body part in darker gray. Luminance mode extracts that region as its mask. -->
     <Silhouette show="true" prefix="body_minimal"
                 image="body_minimal_silhouette.png"
                 painkillerImage="body_minimal_outline.png" outline="none"
@@ -21,6 +35,7 @@
                 opacity="0.94" baseColor="#C6C8C224"
                 flash="true" />
 
+    <!-- id: Health | Energy | Hydration. color="auto" tints by health. barHeight="0" hides the bar. -->
     <Stat id="Health" label="@stats.health" showLabel="true"
           x="102" y="-35" size="19" labelSize="9"
           color="#7DB16E" barWidth="66" barHeight="4"
@@ -136,7 +151,9 @@
             handsStaminaX="50" handsStaminaY="-16"
             handsStaminaIcon="hand_stamina.png" handsStaminaIconX="75"
             handsStaminaIconY="-16" handsStaminaIconSize="22"
-            handStaminaBarX="0" handStaminaBarY="-18"	
+            handStaminaBarWidth="120" handStaminaBarHeight="5"
+            handStaminaBarX="0" handStaminaBarY="-18"
+            iconColorOverlay="true"	
             stanceIcon="stance_stand.png"
             crouchIcon="stance_crouch.png"
             proneIcon="stance_prone.png"
@@ -149,6 +166,7 @@
             speedIcon4="volume_5.png"
             speedIcon5="volume_5.png" />
 
+  <!-- style: X or Cross. thickness can also be overridden in the BepInEx config. -->
   <HitMarker show="true" style="X"
              image="Icons/hit_marker_x.png" crossImage="Icons/hit_marker_cross.png"
              thickness="1" length="5" gap="4"
@@ -162,6 +180,7 @@
   <DamageDirection show="true" image="Icons/damage_direction.png" radius="200"
                    length="50" life="1.5" color="#C34B3F" />
 
+  <!-- tokens: {name} {weapon} {distance} {part} {level} {tag} {kills} -->
   <KillFeed show="true" anchor="TopRight"
             x="-20" y="-120" max="3" life="5"
             size="14" spacing="2" grow="Down"
