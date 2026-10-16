@@ -25,10 +25,13 @@
     <Reference Include="Comfort"><HintPath>$(Managed)\Comfort.dll</HintPath><Private>false</Private></Reference>
     <Reference Include="UnityEngine"><HintPath>$(Managed)\UnityEngine.dll</HintPath><Private>false</Private></Reference>
     <Reference Include="UnityEngine.CoreModule"><HintPath>$(Managed)\UnityEngine.CoreModule.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine.AudioModule"><HintPath>$(Managed)\UnityEngine.AudioModule.dll</HintPath><Private>false</Private></Reference>
     <Reference Include="UnityEngine.UI"><HintPath>$(Managed)\UnityEngine.UI.dll</HintPath><Private>false</Private></Reference>
     <Reference Include="UnityEngine.UIModule"><HintPath>$(Managed)\UnityEngine.UIModule.dll</HintPath><Private>false</Private></Reference>
     <Reference Include="UnityEngine.TextRenderingModule"><HintPath>$(Managed)\UnityEngine.TextRenderingModule.dll</HintPath><Private>false</Private></Reference>
     <Reference Include="UnityEngine.ImageConversionModule"><HintPath>$(Managed)\UnityEngine.ImageConversionModule.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine.UnityWebRequestModule"><HintPath>$(Managed)\UnityEngine.UnityWebRequestModule.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine.UnityWebRequestAudioModule"><HintPath>$(Managed)\UnityEngine.UnityWebRequestAudioModule.dll</HintPath><Private>false</Private></Reference>
     <Reference Include="Unity.TextMeshPro"><HintPath>$(Managed)\Unity.TextMeshPro.dll</HintPath><Private>false</Private></Reference>
     <Reference Include="UnityEngine.InputLegacyModule"><HintPath>$(Managed)\UnityEngine.InputLegacyModule.dll</HintPath><Private>false</Private></Reference>
     <Reference Include="BepInEx"><HintPath>$(SptPath)\BepInEx\core\BepInEx.dll</HintPath><Private>false</Private></Reference>
@@ -46,6 +49,10 @@
       <LocalizationFiles Include="Localization\**\*" />
     </ItemGroup>
     <Copy SourceFiles="@(LocalizationFiles)" DestinationFiles="@(LocalizationFiles->'$(SptPath)\BepInEx\plugins\HudBreakout\Localization\%(RecursiveDir)%(Filename)%(Extension)')" />
+    <ItemGroup>
+      <AudioFiles Include="Audio\**\*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(AudioFiles)" DestinationFiles="@(AudioFiles->'$(SptPath)\BepInEx\plugins\HudBreakout\Audio\%(RecursiveDir)%(Filename)%(Extension)')" />
   </Target>
 
   <Target Name="GeneratePluginInfo" BeforeTargets="CoreCompile">
@@ -68,7 +75,7 @@
     </PropertyGroup>
 
     <RemoveDir Directories="$(PackageDirectory)" />
-    <MakeDir Directories="$(PluginPackageDirectory)\Themes;$(PluginPackageDirectory)\Localization" />
+    <MakeDir Directories="$(PluginPackageDirectory)\Themes;$(PluginPackageDirectory)\Localization;$(PluginPackageDirectory)\Audio" />
     <Copy SourceFiles="$(OutputPath)HudBreakout.dll" DestinationFolder="$(PluginPackageDirectory)" />
 
     <ItemGroup>
@@ -81,6 +88,11 @@
     </ItemGroup>
     <Copy SourceFiles="@(PackageLocalizationFiles)"
           DestinationFiles="@(PackageLocalizationFiles->'$(PluginPackageDirectory)\Localization\%(RecursiveDir)%(Filename)%(Extension)')" />
+    <ItemGroup>
+      <PackageAudioFiles Include="Audio\**\*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(PackageAudioFiles)"
+          DestinationFiles="@(PackageAudioFiles->'$(PluginPackageDirectory)\Audio\%(RecursiveDir)%(Filename)%(Extension)')" />
     <Copy SourceFiles="README.md" DestinationFiles="$(PackageDirectory)\README.md" />
 
     <ZipDirectory SourceDirectory="$(PackageDirectory)" DestinationFile="$(PackageArchive)" Overwrite="true" />

@@ -98,7 +98,7 @@ namespace HudBreakout
             _killFeed = new KillFeedView(_content, _theme);
 
             HudEvents.DamageTaken += OnDamageTaken;
-            HudEvents.HitDealt += _combat.OnHit;
+            HudEvents.HitDealt += OnHitDealt;
             HudEvents.Kill += _killFeed.OnKill;
 
             _profileId = null;
@@ -108,7 +108,7 @@ namespace HudBreakout
         private void Unsubscribe()
         {
             HudEvents.DamageTaken -= OnDamageTaken;
-            if (_combat != null) HudEvents.HitDealt -= _combat.OnHit;
+            HudEvents.HitDealt -= OnHitDealt;
             if (_killFeed != null) HudEvents.Kill -= _killFeed.OnKill;
         }
 
@@ -128,6 +128,12 @@ namespace HudBreakout
         {
             _vitals.OnDamage(e);
             _combat.OnDamageTaken(e);
+        }
+
+        private void OnHitDealt(HitEvent e)
+        {
+            _combat.OnHit(e);
+            HudBreakoutPlugin.HitAudio?.OnHit(e);
         }
 
         public static Vector2 ScreenToLocal(Vector2 screenPos)
@@ -151,11 +157,20 @@ namespace HudBreakout
             var world = Singleton<GameWorld>.Instantiated ? Singleton<GameWorld>.Instance : null;
             MainPlayer = FindMainPlayer(world);
             var inRaid = IsInRaid(world, MainPlayer);
+            if (inRaid != _wasInRaid)
+                HudBreakoutPlugin.HitAudio?.ReloadClips();
 
-            if (inRaid && Settings.PreviewKey.Value.IsDown())
+            if (Settings.PreviewKey.Value.IsDown())
             {
-                _previewUntil = Time.unscaledTime + 5f;
-                _previewDone = false;
+                if (inRaid)
+                {
+                    _previewUntil = Time.unscaledTime + 5f;
+                    _previewDone = false;
+                }
+                else
+                {
+                    HudBreakoutPlugin.HitAudio?.PlayPreview();
+                }
             }
 
             TrackEscapeMenu();
@@ -211,6 +226,7 @@ namespace HudBreakout
                     _movement.Preview();
                     _combat.Preview();
                     _killFeed.Preview();
+                    HudBreakoutPlugin.HitAudio?.PlayPreview();
                     _previewDone = true;
                 }
             }

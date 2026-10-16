@@ -8,6 +8,7 @@
   <Text key="settings.name.show_all_hud">Show All HUD</Text>
   <Text key="settings.name.show_vitals_panel">Show Vitals Panel</Text>
   <Text key="settings.name.show_hit_marker">Show Hit Marker</Text>
+  <Text key="settings.name.play_hit_sounds">Play Hit Sounds</Text>
   <Text key="settings.name.show_damage_numbers">Show Damage Numbers</Text>
   <Text key="settings.name.show_kill_feed">Show Kill Feed</Text>
   <Text key="settings.name.show_damage_direction">Show Damage Direction</Text>
@@ -26,6 +27,7 @@
   <Text key="settings.name.show_stamina_bars">Show Stamina Bars</Text>
   <Text key="settings.name.enable_grid">Enable Grid</Text>
   <Text key="settings.name.hit_marker_thickness">Hit Marker Thickness</Text>
+  <Text key="settings.name.hit_sound_volume">Hit Sound Volume</Text>
   <Text key="settings.name.hud_scale">HUD Scale</Text>
   <Text key="settings.name.hud_opacity">HUD Opacity</Text>
   <Text key="settings.theme">HUD theme folder. Changes apply instantly.</Text>
@@ -34,6 +36,7 @@
   <Text key="settings.show_all_hud">Master toggle for every HudBreakout panel.</Text>
   <Text key="settings.show_vitals_panel">Body silhouette, health, energy and hydration.</Text>
   <Text key="settings.show_hit_marker">Marker when you hit an enemy.</Text>
+  <Text key="settings.play_hit_sounds">Play hit, headshot, and kill audio cues.</Text>
   <Text key="settings.show_damage_numbers">Floating damage numbers at the impact point.</Text>
   <Text key="settings.show_kill_feed">Kill lines with weapon, distance and body part.</Text>
   <Text key="settings.show_damage_direction">Indicators pointing to where damage came from.</Text>
@@ -51,6 +54,7 @@
   <Text key="settings.show_grenades">Show the grenade icon and count.</Text>
   <Text key="settings.show_stamina_bars">Show both leg/body and hand stamina bars.</Text>
   <Text key="settings.enable_grid">Show a screen-aligned grid to help position HUD elements.</Text>
+  <Text key="settings.hit_sound_volume">Volume multiplier for the hit sound effect.</Text>
   <Text key="settings.hit_marker_thickness">Line thickness in pixels. 0 uses the theme value.</Text>
   <Text key="settings.hud_scale">Overall HUD scale.</Text>
   <Text key="settings.hud_opacity">Opacity multiplier for the whole HUD.</Text>

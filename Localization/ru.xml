@@ -26,6 +26,8 @@
   <Text key="settings.name.show_stamina_bars">Показывать шкалы выносливости</Text>
   <Text key="settings.name.enable_grid">Включить сетку</Text>
   <Text key="settings.name.hit_marker_thickness">Толщина маркера попадания</Text>
+  <Text key="settings.name.play_hit_sounds">Воспроизводить звуки попадания</Text>
+  <Text key="settings.name.hit_sound_volume">Громкость звука попадания</Text>
   <Text key="settings.name.hud_scale">Масштаб HUD</Text>
   <Text key="settings.name.hud_opacity">Непрозрачность HUD</Text>
   <Text key="settings.theme">Папка темы HUD. Изменения применяются сразу.</Text>
@@ -52,6 +54,8 @@
   <Text key="settings.show_stamina_bars">Показывать шкалы выносливости ног/тела и рук.</Text>
   <Text key="settings.enable_grid">Показывать сетку экрана для более точного размещения элементов HUD.</Text>
   <Text key="settings.hit_marker_thickness">Толщина линий в пикселях. 0 использует значение темы.</Text>
+  <Text key="settings.play_hit_sounds">Воспроизводить звуки попадания при получении урона.</Text>
+  <Text key="settings.hit_sound_volume">Множитель громкости звука попадания.</Text>
   <Text key="settings.hud_scale">Общий масштаб HUD.</Text>
   <Text key="settings.hud_opacity">Прозрачность всего HUD.</Text>
   <Text key="settings.name.layout.vitals_x">Показатели X</Text>

@@ -9,12 +9,13 @@ namespace HudBreakout
     internal static class Settings
     {
         public static ConfigEntry<bool> ShowVitals, ShowHitMarker, ShowDamageNumbers, ShowKillFeed, ShowDamageDirection;
+        public static ConfigEntry<bool> PlayHitSounds;
         public static ConfigEntry<bool> ShowSilhouette, ShowHealthLabel, ShowHydrationLabel, ShowEnergyLabel;
         public static ConfigEntry<bool> ShowAllHud, ShowEffects, ShowEquipment, ShowMovement;
         public static ConfigEntry<bool> ShowStance, ShowSpeedIndicator, ShowWeaponName, ShowAmmo, ShowGrenades;
         public static ConfigEntry<bool> ShowStaminaBars;
         public static ConfigEntry<bool> EnableGrid;
-        public static ConfigEntry<float> Scale, Opacity, HitMarkerThickness;
+        public static ConfigEntry<float> Scale, Opacity, HitMarkerThickness, HitSoundVolume;
         public static ConfigEntry<string> ThemeName, Language;
         public static ConfigEntry<KeyboardShortcut> ReloadKey, PreviewKey;
 
@@ -64,6 +65,7 @@ namespace HudBreakout
             ShowAllHud = Toggle(cfg, "Show All HUD", "settings.name.show_all_hud", "settings.show_all_hud");
             ShowVitals = Toggle(cfg, "Show Vitals Panel", "settings.name.show_vitals_panel", "settings.show_vitals_panel");
             ShowHitMarker = Toggle(cfg, "Show Hit Marker", "settings.name.show_hit_marker", "settings.show_hit_marker");
+            PlayHitSounds = Toggle(cfg, "Play Hit Sounds", "settings.name.play_hit_sounds", "settings.play_hit_sounds");
             ShowDamageNumbers = Toggle(cfg, "Show Damage Numbers", "settings.name.show_damage_numbers", "settings.show_damage_numbers");
             ShowKillFeed = Toggle(cfg, "Show Kill Feed", "settings.name.show_kill_feed", "settings.show_kill_feed");
             ShowDamageDirection = Toggle(cfg, "Show Damage Direction", "settings.name.show_damage_direction", "settings.show_damage_direction");
@@ -86,10 +88,17 @@ namespace HudBreakout
                 TextLocalization.Get("settings.hit_marker_thickness"),
                 new AcceptableValueRange<float>(0f, 8f),
                 DisplayName("settings.name.hit_marker_thickness")));
+
+            HitSoundVolume = cfg.Bind(Main, "Hit Sound Volume", 1f, new ConfigDescription(
+                TextLocalization.Get("settings.hit_sound_volume"),
+                new AcceptableValueRange<float>(0f, 2f),
+                DisplayName("settings.name.hit_sound_volume")));
+
             Scale = cfg.Bind(Main, "HUD Scale", 1f, new ConfigDescription(
                 TextLocalization.Get("settings.hud_scale"),
                 new AcceptableValueRange<float>(0.5f, 2f),
                 DisplayName("settings.name.hud_scale")));
+
             Opacity = cfg.Bind(Main, "HUD Opacity", 1f, new ConfigDescription(
                 TextLocalization.Get("settings.hud_opacity"),
                 new AcceptableValueRange<float>(0.2f, 1f),
