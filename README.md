@@ -16,16 +16,16 @@ I plan to create detailed documentation in github for each configuration paramet
 
 ##### TextOnly
 
-![TextOnly Theme 1](assets/Screenshot_HudBreakout_TextOnly.jpg)
+![TextOnly Theme 1](Assets/Screenshot_HudBreakout_TextOnly.jpg)
 
 ##### Minimalistic
 
-![Minimal Theme 1](assets/Screenshot_HudBreakout_Minimal.jpg)
-![Minimal Theme 2](assets/Screenshot_HudBreakout_Minimal2.jpg)
+![Minimal Theme 1](Assets/Screenshot_HudBreakout_Minimal.jpg)
+![Minimal Theme 2](Assets/Screenshot_HudBreakout_Minimal2.jpg)
 
 ##### Colorful Icons (Breakout Style)
 
-![Colorful Theme 1](assets/Screenshot_HudBreakout_Colorfu2.jpg)
+![Colorful Theme 1](Assets/Screenshot_HudBreakout_Colorfu2.jpg)
 
 ### Profiler Verdict:
 
