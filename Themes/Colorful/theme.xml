@@ -21,19 +21,19 @@
                 opacity="0.6" baseColor="#C6C8C224"
                 flash="true" />
 
-    <Stat id="Health" label="HEALTH" showLabel="true"
+    <Stat id="Health" label="@stats.health" showLabel="true"
           x="102" y="-35" size="19" labelSize="9"
           color="#1EA525" barWidth="66" barHeight="4"
           barBackgroundSprite="bar_background.png" barFillSprite="bar_fill.png"
           suffix="/{max}" />
 
-    <Stat id="Energy" label="ENERGY" showLabel="true"
+    <Stat id="Energy" label="@stats.energy" showLabel="true"
           x="102" y="-78" size="19" labelSize="9"
           color="#EC7B04" barWidth="66" barHeight="4"
           barBackgroundSprite="bar_background.png" barFillSprite="bar_fill.png"
           suffix="/{max}" />
 
-    <Stat id="Hydration" label="HYDRATION" showLabel="true"
+    <Stat id="Hydration" label="@stats.hydration" showLabel="true"
           x="102" y="-121" size="19" labelSize="9"
           color="#0077C1" barWidth="66" barHeight="4"
           barBackgroundSprite="bar_background.png" barFillSprite="bar_fill.png"
@@ -106,7 +106,7 @@
              grenadeIconSize="36" rowHeight="42"
              fontSize="14" ammoSize="20"
              weaponIcon="weapon.png" ammoIcon="ammo.png"
-             grenadeIcon="grenade.png" grenadeLabel="GRENADES"
+             grenadeIcon="grenade.png" grenadeLabel="@equipment.grenades"
              assaultRifleIcon="weapon_assault_rifle.png"
              assaultCarbineIcon="weapon_assault_carbine.png"
              sniperIcon="weapon_sniper.png"
@@ -161,6 +161,6 @@
   <KillFeed show="true" anchor="TopRight"
             x="-20" y="-120" max="3" life="5"
             size="14" spacing="2" grow="Down"
-            format="{name}  {c:#858A82}{weapon}  {distance}m  {part}{/c}"
-            headshotFormat="{name}  {c:#858A82}{weapon}  {distance}m{/c}  {c:#D6B75A}HEADSHOT{/c}" />
+            format="{name}  {c:#858A82}{weapon}  {distance}{distanceUnit}  {part}{/c}"
+            headshotFormat="{name}  {c:#858A82}{weapon}  {distance}{distanceUnit}{/c}  {c:#D6B75A}{t:killfeed.headshot}{/c}" />
 </Theme>

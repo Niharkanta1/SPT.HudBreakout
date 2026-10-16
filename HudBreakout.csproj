@@ -4,7 +4,7 @@
     <TargetFramework>net472</TargetFramework>
     <AssemblyName>HudBreakout</AssemblyName>
     <RootNamespace>HudBreakout</RootNamespace>
-    <Version>1.0.0</Version>
+    <Version>1.1.0</Version>
     <LangVersion>latest</LangVersion>
     <Nullable>disable</Nullable>
     <ImplicitUsings>disable</ImplicitUsings>
@@ -42,6 +42,10 @@
       <ThemeFiles Include="Themes\**\*" />
     </ItemGroup>
     <Copy SourceFiles="@(ThemeFiles)" DestinationFiles="@(ThemeFiles->'$(SptPath)\BepInEx\plugins\HudBreakout\Themes\%(RecursiveDir)%(Filename)%(Extension)')" />
+    <ItemGroup>
+      <LocalizationFiles Include="Localization\**\*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(LocalizationFiles)" DestinationFiles="@(LocalizationFiles->'$(SptPath)\BepInEx\plugins\HudBreakout\Localization\%(RecursiveDir)%(Filename)%(Extension)')" />
   </Target>
 
   <Target Name="GeneratePluginInfo" BeforeTargets="CoreCompile">
@@ -64,7 +68,7 @@
     </PropertyGroup>
 
     <RemoveDir Directories="$(PackageDirectory)" />
-    <MakeDir Directories="$(PluginPackageDirectory)\Themes" />
+    <MakeDir Directories="$(PluginPackageDirectory)\Themes;$(PluginPackageDirectory)\Localization" />
     <Copy SourceFiles="$(OutputPath)HudBreakout.dll" DestinationFolder="$(PluginPackageDirectory)" />
 
     <ItemGroup>
@@ -72,6 +76,11 @@
     </ItemGroup>
     <Copy SourceFiles="@(PackageThemeFiles)"
           DestinationFiles="@(PackageThemeFiles->'$(PluginPackageDirectory)\Themes\%(RecursiveDir)%(Filename)%(Extension)')" />
+    <ItemGroup>
+      <PackageLocalizationFiles Include="Localization\**\*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(PackageLocalizationFiles)"
+          DestinationFiles="@(PackageLocalizationFiles->'$(PluginPackageDirectory)\Localization\%(RecursiveDir)%(Filename)%(Extension)')" />
     <Copy SourceFiles="README.md" DestinationFiles="$(PackageDirectory)\README.md" />
 
     <ZipDirectory SourceDirectory="$(PackageDirectory)" DestinationFile="$(PackageArchive)" Overwrite="true" />

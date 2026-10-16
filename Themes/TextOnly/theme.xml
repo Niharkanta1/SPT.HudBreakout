@@ -6,14 +6,14 @@
                 painkillerImage="body_minimal_outline.png" outline="none"
                 maskMode="luminance" maskThreshold="0.84" maskSoftness="0.12"
                 x="0" y="-130" width="86" height="132" opacity="0.94" baseColor="#dce1df24" flash="true" />
-    <Stat id="Health" label="HEALTH" showLabel="true" x="0" y="-24" size="20" labelSize="9" color="#a5dc76" barWidth="66" barHeight="0" suffix="/{max}" />
-    <Stat id="Energy" label="ENERGY" showLabel="true" x="0" y="-60" size="20" labelSize="9" color="#e8c85a" barWidth="66" barHeight="0" suffix="/{max}" />
-    <Stat id="Hydration" label="HYDRATION" showLabel="true" x="0" y="-96" size="20" labelSize="9" color="#64b8d4" barWidth="66" barHeight="0" suffix="/{max}" />
+    <Stat id="Health" label="@stats.health" showLabel="true" x="0" y="-24" size="20" labelSize="9" color="#a5dc76" barWidth="66" barHeight="0" suffix="/{max}" />
+    <Stat id="Energy" label="@stats.energy" showLabel="true" x="0" y="-60" size="20" labelSize="9" color="#e8c85a" barWidth="66" barHeight="0" suffix="/{max}" />
+    <Stat id="Hydration" label="@stats.hydration" showLabel="true" x="0" y="-96" size="20" labelSize="9" color="#64b8d4" barWidth="66" barHeight="0" suffix="/{max}" />
     <Status show="true" x="0" y="-134" size="11" />
   </Vitals>
   <Icons enabled="false" />
   <Effects show="true" anchor="TopLeft" x="20" y="-190" rowHeight="20" fontSize="12" />
-  <Equipment show="true" anchor="BottomRight" x="-20" y="128" rowHeight="30" fontSize="14" ammoSize="18" grenadeLabel="GRENADES" />
+  <Equipment show="true" anchor="BottomRight" x="-20" y="128" rowHeight="30" fontSize="14" ammoSize="18" grenadeLabel="@equipment.grenades" />
   <Movement show="true" anchor="BottomLeft" x="20" y="20" 
             weaponTextAlign="Right" ammoTextAlign="Right" grenadeTextAlign="Right" 
             fontSize="12" showStanceText="true" showSpeedText="true"
@@ -27,6 +27,6 @@
   <DamageNumbers show="true" size="18" life="0.9" rise="55" spawnRise="50"/>
   <DamageDirection show="false" image="Icons/damage_direction.png" radius="190" length="55" life="1.5" color="#d9473d" />
   <KillFeed show="true" anchor="TopRight" x="-20" y="-120" max="3" life="5" size="14" spacing="2" grow="Down"
-            format="{name}  {c:#858e8a}{weapon}  {distance}m  {part}{/c}"
-            headshotFormat="{name}  {c:#858e8a}{weapon}  {distance}m{/c}  {c:#f2cf5b}HEADSHOT{/c}" />
+            format="{name}  {c:#858e8a}{weapon}  {distance}{distanceUnit}  {part}{/c}"
+            headshotFormat="{name}  {c:#858e8a}{weapon}  {distance}{distanceUnit}{/c}  {c:#f2cf5b}{t:killfeed.headshot}{/c}" />
 </Theme>

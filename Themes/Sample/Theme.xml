@@ -22,9 +22,9 @@
                 x="0" y="-130" width="86" height="132" opacity="0.94"
                 baseColor="#dce1df24" flash="true" />
     <!-- id: Health | Energy | Hydration. color="auto" tints by health. barHeight="0" hides the bar. -->
-    <Stat id="Health"    label="HEALTH"    showLabel="true" x="102" y="-35" size="19" labelSize="9" color="#a5dc76" barWidth="66" barHeight="4" barBackgroundSprite="bar_background.png" barFillSprite="bar_fill.png" suffix="/{max}" />
-    <Stat id="Energy"    label="ENERGY"    showLabel="true" x="102" y="-78" size="19" labelSize="9" color="#e8c85a" barWidth="66" barHeight="4" barBackgroundSprite="bar_background.png" barFillSprite="bar_fill.png" suffix="/{max}" />
-    <Stat id="Hydration" label="HYDRATION" showLabel="true" x="102" y="-121" size="19" labelSize="9" color="#64b8d4" barWidth="66" barHeight="4" barBackgroundSprite="bar_background.png" barFillSprite="bar_fill.png" suffix="/{max}" />
+    <Stat id="Health"    label="@stats.health"    showLabel="true" x="102" y="-35" size="19" labelSize="9" color="#a5dc76" barWidth="66" barHeight="4" barBackgroundSprite="bar_background.png" barFillSprite="bar_fill.png" suffix="/{max}" />
+    <Stat id="Energy"    label="@stats.energy"    showLabel="true" x="102" y="-78" size="19" labelSize="9" color="#e8c85a" barWidth="66" barHeight="4" barBackgroundSprite="bar_background.png" barFillSprite="bar_fill.png" suffix="/{max}" />
+    <Stat id="Hydration" label="@stats.hydration" showLabel="true" x="102" y="-121" size="19" labelSize="9" color="#64b8d4" barWidth="66" barHeight="4" barBackgroundSprite="bar_background.png" barFillSprite="bar_fill.png" suffix="/{max}" />
     <Status show="true" x="0" y="-168" size="11" />
   </Vitals>
 
@@ -51,7 +51,7 @@
              panelHeight="46" panelGap="2"
              iconSize="40" weaponIconSize="44" ammoIconSize="28" grenadeIconSize="26" rowHeight="42"
              fontSize="14" ammoSize="20" weaponIcon="weapon.png" ammoIcon="ammo.png"
-             grenadeIcon="grenade.png" grenadeLabel="GRENADES"
+             grenadeIcon="grenade.png" grenadeLabel="@equipment.grenades"
              assaultRifleIcon="weapon_assault_rifle.png" assaultCarbineIcon="weapon_assault_carbine.png"
              sniperIcon="weapon_sniper.png" shotgunIcon="weapon_shotgun.png"
              smgIcon="weapon_smg.png" lmgIcon="weapon_lmg.png"
@@ -83,6 +83,6 @@
 
   <!-- tokens: {name} {weapon} {distance} {part} {level} {tag} {kills} -->
   <KillFeed show="true" anchor="TopRight" x="-20" y="-120" max="3" life="5" size="14" spacing="2" grow="Down"
-            format="{name}  {c:#858e8a}{weapon}  {distance}m  {part}{/c}"
-            headshotFormat="{name}  {c:#858e8a}{weapon}  {distance}m{/c}  {c:#f2cf5b}HEADSHOT{/c}" />
+            format="{name}  {c:#858e8a}{weapon}  {distance}{distanceUnit}  {part}{/c}"
+            headshotFormat="{name}  {c:#858e8a}{weapon}  {distance}{distanceUnit}{/c}  {c:#f2cf5b}{t:killfeed.headshot}{/c}" />
 </Theme>
