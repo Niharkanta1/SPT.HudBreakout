@@ -13,8 +13,10 @@ namespace HudBreakout
         public static bool IsInventoryOpen { get; private set; }
 
         private CanvasGroup _group;
+        private CanvasGroup _contentGroup;
         private RectTransform _content;
         private Theme _theme;
+        private GridView _grid;
         private VitalsView _vitals;
         private EffectsView _effects;
         private EquipmentView _equipment;
@@ -52,6 +54,7 @@ namespace HudBreakout
                 _group.interactable = false;
                 Canvas = (RectTransform)transform;
 
+                _grid = new GridView(transform);
                 Rebuild();
                 HudBreakoutPlugin.Log.LogInfo("HUD ready");
             }
@@ -83,6 +86,9 @@ namespace HudBreakout
             _content = UiKit.CreateNode(transform, "Content", Vector2.zero, new Vector2(0.5f, 0.5f),
                 Vector2.zero, Vector2.zero);
             UiKit.StretchToFillParent(_content);
+            _contentGroup = _content.gameObject.AddComponent<CanvasGroup>();
+            _contentGroup.blocksRaycasts = false;
+            _contentGroup.interactable = false;
 
             _vitals = new VitalsView(_content, _theme);
             _effects = new EffectsView(_content, _theme);
@@ -155,10 +161,13 @@ namespace HudBreakout
             TrackEscapeMenu();
 
             var preview = inRaid && Time.unscaledTime < _previewUntil;
-            var alpha = 0f;
-            if (inRaid && Settings.ShowAllHud.Value && !_escapeMenu)
-                alpha = IsInventoryOpen ? 0.2f : Settings.Opacity.Value;
-            if (!Mathf.Approximately(_group.alpha, alpha)) _group.alpha = alpha;
+            var rootAlpha = inRaid && !_escapeMenu ? 1f : 0f;
+            if (!Mathf.Approximately(_group.alpha, rootAlpha)) _group.alpha = rootAlpha;
+            var contentAlpha = inRaid && Settings.ShowAllHud.Value && !_escapeMenu
+                ? (IsInventoryOpen ? 0.2f : Settings.Opacity.Value)
+                : 0f;
+            if (!Mathf.Approximately(_contentGroup.alpha, contentAlpha)) _contentGroup.alpha = contentAlpha;
+            _grid.Update(Settings.EnableGrid.Value);
 
             if (!inRaid)
             {

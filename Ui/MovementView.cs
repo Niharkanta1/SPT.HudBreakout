@@ -53,6 +53,7 @@ namespace HudBreakout
         private string _lastSpeedIcon, _lastStanceIcon;
         private int _lastLegCurrent = int.MinValue, _lastLegMax = int.MinValue;
         private int _lastHandCurrent = int.MinValue, _lastHandMax = int.MinValue;
+        private bool _iconColorOverlay;
 
         public MovementView(Transform parent, Theme theme)
         {
@@ -80,6 +81,7 @@ namespace HudBreakout
             _stanceCrouchIcon = _settings.GetString("crouchIcon", "stance_crouch.png");
             _stanceProneIcon = _settings.GetString("proneIcon", "stance_prone.png");
             _stanceSprintIcon = _settings.GetString("sprintIcon", "stance_sprint.png");
+            _iconColorOverlay = _settings.GetBoolean("iconColorOverlay", true);
 
             // themes that don't ship a walk icon keep showing the standing one
             var walkFile = _settings.GetString("walkIcon", "stance_walk.png");
@@ -128,9 +130,10 @@ namespace HudBreakout
             _speed = Label("Speed", _speedTextPosition, labelSize, theme.Text, new Vector2(180, 22));
             _speed.gameObject.SetActive(_showSpeedText);
 
-            _staminaIcon = Icon("staminaIcon", "stamina.png", _staminaIconPosition, staminaIconSize, _staminaColor);
+            _staminaIcon = Icon("staminaIcon", "stamina.png", _staminaIconPosition, staminaIconSize, _iconColorOverlay ? _staminaColor : Color.white);
             _handsStaminaIcon = Icon("handsStaminaIcon", "hand_stamina.png", _handsIconPosition, handsIconSize,
-                _handStaminaColor);
+                _iconColorOverlay ? _handStaminaColor : Color.white);
+
             _stamina = Label("Stamina", _staminaTextPosition, staminaFontSize, theme.Text, new Vector2(180, 20));
 
             // text-only themes show the numbers instead of bars, with a wider box for the hands text
@@ -140,15 +143,24 @@ namespace HudBreakout
             {
                 var barWidth = _settings.GetFloat("staminaBarWidth", 100);
                 var barHeight = _settings.GetFloat("staminaBarHeight", 6);
+
+                var handStaminaBarWidth = _settings.GetFloat("handStaminaBarWidth", 100);
+                var handStaminaBarHeight = _settings.GetFloat("handStaminaBarHeight", 6);
+
                 var fillOrigin = _settings.GetString("staminaBarFillDirection", "LeftToRight")
+                    .Equals("RightToLeft", StringComparison.OrdinalIgnoreCase)
+                    ? Image.OriginHorizontal.Right
+                    : Image.OriginHorizontal.Left;
+
+                var handStaminaFillOrigin = _settings.GetString("handStaminaBarFillDirection", "LeftToRight")
                     .Equals("RightToLeft", StringComparison.OrdinalIgnoreCase)
                     ? Image.OriginHorizontal.Right
                     : Image.OriginHorizontal.Left;
 
                 _staminaBarBackground = Bar("StaminaBack", _staminaBarPosition, barWidth, barHeight,
                     _staminaColor, fillOrigin, out _staminaFill);
-                _handsStaminaBarBackground = Bar("HandsStaminaBack", _handsBarPosition, barWidth, barHeight,
-                    _handStaminaColor, fillOrigin, out _handsStaminaFill);
+                _handsStaminaBarBackground = Bar("HandsStaminaBack", _handsBarPosition, handStaminaBarWidth, handStaminaBarHeight,
+                    _handStaminaColor, handStaminaFillOrigin, out _handsStaminaFill);
             }
 
             ApplyFeatureToggles();
