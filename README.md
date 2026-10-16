@@ -23,10 +23,9 @@ I plan to create detailed documentation in github for each configuration paramet
 ![Minimal Theme 1](assets/Screenshot_HudBreakout_Minimal.jpg)
 ![Minimal Theme 2](assets/Screenshot_HudBreakout_Minimal2.jpg)
 
-##### Colorful Icons
+##### Colorful Icons (Breakout Style)
 
-![Colorful Theme 1](assets/Screenshot_HudBreakout_Colorfu.jpg)
-![Colorful Theme 2](assets/Screenshot_HudBreakout_Colorful2.jpg)
+![Colorful Theme 1](assets/Screenshot_HudBreakout_Colorfu2.jpg)
 
 ### Profiler Verdict:
 
