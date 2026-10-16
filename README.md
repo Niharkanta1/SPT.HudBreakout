@@ -31,7 +31,7 @@ I plan to create detailed documentation in github for each configuration paramet
 
 Measured with Mod Profiler:
 HudBreakout maintains an average overhead of just 0.03 ms per frame, accounting for only 0.4% of profiled frame time. With a recorded maximum of 0.05 ms and a stable performance trend, it demonstrates minimal CPU overhead in the tested session.
-![profiler](assets/Profiler.jpg)
+![profiler](Assets/Profiler.jpg)
 
 ## Building and Installing
 
