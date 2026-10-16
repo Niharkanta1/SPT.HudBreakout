@@ -25,6 +25,7 @@
   <Text key="settings.name.show_ammo">Show Ammo</Text>
   <Text key="settings.name.show_grenades">Show Grenades</Text>
   <Text key="settings.name.show_stamina_bars">Show Stamina Bars</Text>
+  <Text key="settings.name.enable_grid">Enable Grid</Text>
   <Text key="settings.name.hit_marker_thickness">Hit Marker Thickness</Text>
   <Text key="settings.name.hit_sound_volume">Hit Sound Volume</Text>
   <Text key="settings.name.hud_scale">HUD Scale</Text>
@@ -52,6 +53,7 @@
   <Text key="settings.show_ammo">Show the ammunition icon and magazine count.</Text>
   <Text key="settings.show_grenades">Show the grenade icon and count.</Text>
   <Text key="settings.show_stamina_bars">Show both leg/body and hand stamina bars.</Text>
+  <Text key="settings.enable_grid">Show a screen-aligned grid to help position HUD elements.</Text>
   <Text key="settings.hit_sound_volume">Volume multiplier for the hit sound effect.</Text>
   <Text key="settings.hit_marker_thickness">Line thickness in pixels. 0 uses the theme value.</Text>
   <Text key="settings.hud_scale">Overall HUD scale.</Text>

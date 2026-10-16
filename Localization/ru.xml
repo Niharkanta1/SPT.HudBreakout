@@ -24,6 +24,7 @@
   <Text key="settings.name.show_ammo">Показывать боеприпасы</Text>
   <Text key="settings.name.show_grenades">Показывать гранаты</Text>
   <Text key="settings.name.show_stamina_bars">Показывать шкалы выносливости</Text>
+  <Text key="settings.name.enable_grid">Включить сетку</Text>
   <Text key="settings.name.hit_marker_thickness">Толщина маркера попадания</Text>
   <Text key="settings.name.play_hit_sounds">Воспроизводить звуки попадания</Text>
   <Text key="settings.name.hit_sound_volume">Громкость звука попадания</Text>
@@ -51,6 +52,7 @@
   <Text key="settings.show_ammo">Показывать значок боеприпасов и количество в магазине.</Text>
   <Text key="settings.show_grenades">Показывать значок и количество гранат.</Text>
   <Text key="settings.show_stamina_bars">Показывать шкалы выносливости ног/тела и рук.</Text>
+  <Text key="settings.enable_grid">Показывать сетку экрана для более точного размещения элементов HUD.</Text>
   <Text key="settings.hit_marker_thickness">Толщина линий в пикселях. 0 использует значение темы.</Text>
   <Text key="settings.play_hit_sounds">Воспроизводить звуки попадания при получении урона.</Text>
   <Text key="settings.hit_sound_volume">Множитель громкости звука попадания.</Text>

@@ -14,6 +14,7 @@ namespace HudBreakout
         public static ConfigEntry<bool> ShowAllHud, ShowEffects, ShowEquipment, ShowMovement;
         public static ConfigEntry<bool> ShowStance, ShowSpeedIndicator, ShowWeaponName, ShowAmmo, ShowGrenades;
         public static ConfigEntry<bool> ShowStaminaBars;
+        public static ConfigEntry<bool> EnableGrid;
         public static ConfigEntry<float> Scale, Opacity, HitMarkerThickness, HitSoundVolume;
         public static ConfigEntry<string> ThemeName, Language;
         public static ConfigEntry<KeyboardShortcut> ReloadKey, PreviewKey;
@@ -81,6 +82,7 @@ namespace HudBreakout
             ShowAmmo = Toggle(cfg, "Show Ammo", "settings.name.show_ammo", "settings.show_ammo");
             ShowGrenades = Toggle(cfg, "Show Grenades", "settings.name.show_grenades", "settings.show_grenades");
             ShowStaminaBars = Toggle(cfg, "Show Stamina Bars", "settings.name.show_stamina_bars", "settings.show_stamina_bars");
+            EnableGrid = cfg.Bind(Main, "Enable Grid", false, ConfigDescription("settings.name.enable_grid", "settings.enable_grid"));
 
             HitMarkerThickness = cfg.Bind(Main, "Hit Marker Thickness", 0f, new ConfigDescription(
                 TextLocalization.Get("settings.hit_marker_thickness"),
