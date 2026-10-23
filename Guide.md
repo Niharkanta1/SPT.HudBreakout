@@ -42,9 +42,9 @@
   ```
 
   - Colors accept `#RRGGBB` or `#RRGGBBAA` (the final two digits are alpha/opacity).
-  - Coordinates are HUD pixels on a 1920x1080 reference canvas. Positive `x` moves right; positive `y` moves up, relative to the element's anchor.
+  - Coordinates are HUD pixels on a 1920x1080 reference canvas. Positive `x` moves right; positive `y` moves up, relative to the element's anchor. The HUD is sized from screen height, so on ultrawide screens it stays the same size and edge anchors sit at the real screen edges.
   - Valid anchors: `TopLeft`, `TopCenter`, `TopRight`, `MiddleLeft`, `Center`, `MiddleCenter`, `MiddleRight`, `BottomLeft`, `BottomCenter`, and `BottomRight`.
-  - `scale` on a panel scales that panel. The global **HUD Scale** setting multiplies the theme scales.
+  - `scale` on a panel scales that panel. The global **HUD Scale** setting multiplies the theme scales. Vitals, Effects, Equipment, and Movement scale around the edge of their content facing the screen border they are anchored to, so their distance from that border does not change with scale. If scaling makes two of these panels overlap when they did not at scale 1, one is moved away from its screen border just far enough to clear the other.
   - Set `shadow="false"` on `<Theme>` to turn off text shadows. Text uses the game's Bender Normal TextMeshPro font; the theme does not select another font.
   - XML booleans use `true` or `false`; numbers use a period for decimal values.
 
