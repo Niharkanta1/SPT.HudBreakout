@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using BepInEx.Bootstrap;
 using EFT;
 using EFT.Ballistics;
 using EFT.UI;
@@ -113,6 +114,31 @@ namespace HudBreakout
         private static void Postfix(MethodBase __originalMethod)
         {
             HudRoot.SetInventoryOpen(__originalMethod.Name == "Show");
+        }
+    }
+
+    // Optional: only patched when Fika is installed. Fika calls this once when the local player extracts
+    [HarmonyPatch]
+    internal static class FikaExtractPatch
+    {
+        internal const string FikaGuid = "com.fika.core";
+        private static MethodBase _target;
+
+        private static bool Prepare()
+        {
+            // TypeByName logs a warning when the type is missing, so only look it up with Fika loaded
+            if (_target == null && Chainloader.PluginInfos.ContainsKey(FikaGuid))
+                _target = AccessTools.Method(AccessTools.TypeByName("Fika.Core.Main.GameMode.CoopGame"), "Extract");
+            return _target != null;
+        }
+
+        private static MethodBase TargetMethod() => _target;
+
+        [HarmonyPostfix]
+        private static void Postfix(Player player)
+        {
+            if (player != null && player == HudRoot.MainPlayer)
+                HudRoot.SetExtracted();
         }
     }
 }

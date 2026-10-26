@@ -11,6 +11,7 @@ namespace HudBreakout
         public static Player MainPlayer { get; private set; }
         public static RectTransform Canvas { get; private set; }
         public static bool IsInventoryOpen { get; private set; }
+        public static bool IsExtracted { get; private set; }
 
         private CanvasGroup _group;
         private CanvasGroup _contentGroup;
@@ -31,10 +32,12 @@ namespace HudBreakout
         private float _previewUntil;
         private bool _previewDone;
         private bool _wasInRaid;
+        private bool _audioInRaid;
         private bool _escapeMenu;
         private bool _cursorSeen;
 
         internal static void SetInventoryOpen(bool open) => IsInventoryOpen = open;
+        internal static void SetExtracted() => IsExtracted = true;
 
         private void Awake()
         {
@@ -126,6 +129,7 @@ namespace HudBreakout
             Unsubscribe();
             _theme?.Dispose();
             IsInventoryOpen = false;
+            IsExtracted = false;
             if (Canvas == transform)
             {
                 MainPlayer = null;
@@ -166,8 +170,14 @@ namespace HudBreakout
             var world = Singleton<GameWorld>.Instantiated ? Singleton<GameWorld>.Instance : null;
             MainPlayer = FindMainPlayer(world);
             var inRaid = IsInRaid(world, MainPlayer);
-            if (inRaid != _wasInRaid)
+            if (inRaid != _audioInRaid)
+            {
+                _audioInRaid = inRaid;
                 HudBreakoutPlugin.HitAudio?.ReloadClips();
+            }
+            if (!inRaid) IsExtracted = false;
+            // Fika keeps the raid running while dead or extracted (until its extract key), so hide the HUD then too
+            inRaid = inRaid && !IsExtracted && MainPlayer.HealthController.IsAlive;
 
             if (Settings.PreviewKey.Value.IsDown())
             {
