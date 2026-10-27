@@ -11,6 +11,7 @@ namespace HudBreakout
         public static Player MainPlayer { get; private set; }
         public static RectTransform Canvas { get; private set; }
         public static bool IsInventoryOpen { get; private set; }
+        public static bool IsExtracted { get; private set; }
 
         private CanvasGroup _group;
         private CanvasGroup _contentGroup;
@@ -23,6 +24,7 @@ namespace HudBreakout
         private MovementView _movement;
         private CombatView _combat;
         private KillFeedView _killFeed;
+        private ScalePivot[] _pivots;
 
         private string _builtTheme;
         private string _builtLanguage;
@@ -30,10 +32,12 @@ namespace HudBreakout
         private float _previewUntil;
         private bool _previewDone;
         private bool _wasInRaid;
+        private bool _audioInRaid;
         private bool _escapeMenu;
         private bool _cursorSeen;
 
         internal static void SetInventoryOpen(bool open) => IsInventoryOpen = open;
+        internal static void SetExtracted() => IsExtracted = true;
 
         private void Awake()
         {
@@ -47,7 +51,8 @@ namespace HudBreakout
                 scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
                 scaler.referenceResolution = new Vector2(1920, 1080);
                 scaler.screenMatchMode = CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
-                scaler.matchWidthOrHeight = 0.5f;
+                // Height only, so ultrawide doesn't enlarge the HUD (0.5 blended in the width)
+                scaler.matchWidthOrHeight = 1f;
 
                 _group = gameObject.AddComponent<CanvasGroup>();
                 _group.blocksRaycasts = false;
@@ -96,6 +101,13 @@ namespace HudBreakout
             _movement = new MovementView(_content, _theme);
             _combat = new CombatView(_content, _theme);
             _killFeed = new KillFeedView(_content, _theme);
+            _pivots = new[]
+            {
+                new ScalePivot(_vitals.Root, _vitals.ThemeScale),
+                new ScalePivot(_effects.Root, _effects.ThemeScale),
+                new ScalePivot(_equipment.Root, _equipment.ThemeScale),
+                new ScalePivot(_movement.Root, _movement.ThemeScale)
+            };
 
             HudEvents.DamageTaken += OnDamageTaken;
             HudEvents.HitDealt += OnHitDealt;
@@ -117,6 +129,7 @@ namespace HudBreakout
             Unsubscribe();
             _theme?.Dispose();
             IsInventoryOpen = false;
+            IsExtracted = false;
             if (Canvas == transform)
             {
                 MainPlayer = null;
@@ -157,8 +170,14 @@ namespace HudBreakout
             var world = Singleton<GameWorld>.Instantiated ? Singleton<GameWorld>.Instance : null;
             MainPlayer = FindMainPlayer(world);
             var inRaid = IsInRaid(world, MainPlayer);
-            if (inRaid != _wasInRaid)
+            if (inRaid != _audioInRaid)
+            {
+                _audioInRaid = inRaid;
                 HudBreakoutPlugin.HitAudio?.ReloadClips();
+            }
+            if (!inRaid) IsExtracted = false;
+            // Fika keeps the raid running while dead or extracted (until its extract key), so hide the HUD then too
+            inRaid = inRaid && !IsExtracted && MainPlayer.HealthController.IsAlive;
 
             if (Settings.PreviewKey.Value.IsDown())
             {
@@ -207,12 +226,11 @@ namespace HudBreakout
             _wasInRaid = true;
 
             var scale = Settings.Scale.Value;
-            Place(_vitals.Root, _vitals.ThemeScale * scale, _vitals.ThemeShow, Settings.ShowVitals.Value, preview);
-            Place(_effects.Root, _effects.ThemeScale * scale, _effects.ThemeShow, Settings.ShowEffects.Value, preview);
-            Place(_equipment.Root, _equipment.ThemeScale * scale, _equipment.ThemeShow, Settings.ShowEquipment.Value, preview);
-            Place(_movement.Root, _movement.ThemeScale * scale, _movement.ThemeShow, Settings.ShowMovement.Value, preview);
-            Place(_killFeed.Root, _killFeed.ThemeScale * scale, _killFeed.ThemeShow, Settings.ShowKillFeed.Value, preview);
-            SetScale(_combat.Root, scale);
+            Place(_vitals.Root, _vitals.ThemeShow, Settings.ShowVitals.Value, preview);
+            Place(_effects.Root, _effects.ThemeShow, Settings.ShowEffects.Value, preview);
+            Place(_equipment.Root, _equipment.ThemeShow, Settings.ShowEquipment.Value, preview);
+            Place(_movement.Root, _movement.ThemeShow, Settings.ShowMovement.Value, preview);
+            Place(_killFeed.Root, _killFeed.ThemeShow, Settings.ShowKillFeed.Value, preview);
             SetActive(_combat.Root.gameObject, true);
 
             var dt = Time.unscaledDeltaTime;
@@ -237,6 +255,13 @@ namespace HudBreakout
                 if (_equipment.Root.gameObject.activeSelf) _equipment.Update(MainPlayer);
                 if (_movement.Root.gameObject.activeSelf) _movement.Update(MainPlayer, dt);
             }
+
+            // After the views have laid themselves out
+            foreach (var pivot in _pivots)
+                pivot.Update(scale);
+            ScalePivot.Separate(_pivots);
+            SetScale(_killFeed.Root, _killFeed.ThemeScale * scale);
+            SetScale(_combat.Root, scale);
 
             _combat.Update(dt);
             _killFeed.Update(dt);
@@ -274,9 +299,8 @@ namespace HudBreakout
             _killFeed.Reset();
         }
 
-        private static void Place(RectTransform root, float scale, bool themeShow, bool settingOn, bool preview)
+        private static void Place(RectTransform root, bool themeShow, bool settingOn, bool preview)
         {
-            SetScale(root, scale);
             SetActive(root.gameObject, preview || (themeShow && settingOn));
         }
 

@@ -7,6 +7,8 @@ using UnityEngine;
 namespace HudBreakout
 {
     [BepInPlugin("com.deadwolf.hudbreakout", "HudBreakout", PluginInfo.Version)]
+    // Soft, Fika loads first when present (FikaExtractPatch checks for it)
+    [BepInDependency(FikaExtractPatch.FikaGuid, BepInDependency.DependencyFlags.SoftDependency)]
     public class HudBreakoutPlugin : BaseUnityPlugin
     {
         internal static ManualLogSource Log;
