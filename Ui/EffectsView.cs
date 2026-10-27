@@ -46,6 +46,7 @@ namespace HudBreakout
             public TMP_Text Text;
             public string Label;
             public int LastCount = int.MinValue;
+            public int LastTimeLeft = int.MinValue;
         }
 
         public RectTransform Root { get; }
@@ -58,6 +59,7 @@ namespace HudBreakout
         private readonly Vector2 _position;
         private readonly List<EffectRow> _rows = new List<EffectRow>((int)StatusEffect.Count);
         private readonly int[] _counts = new int[(int)StatusEffect.Count];
+        private readonly int[] _timeLeft = new int[(int)StatusEffect.Count];
         private readonly float _rowHeight, _iconSize;
         private readonly int _fontSize;
 
@@ -132,17 +134,24 @@ namespace HudBreakout
         {
             PlaceRoot();
             Array.Clear(_counts, 0, _counts.Length);
+            Array.Clear(_timeLeft, 0, _timeLeft.Length);
 
             foreach (var effect in player.HealthController.GetAllActiveEffects())
             {
                 if (effect is IStimulator stimulator) CountBuffs(stimulator);
 
                 var row = GetStatusEffectRow(effect);
-                if (row >= 0) _counts[row]++;
+                if (row >= 0)
+                {
+                    var seconds = effect.TimeLeft > 0 ? Mathf.CeilToInt(effect.TimeLeft) : 0;
+                    if (_timeLeft[row] == 0 || (seconds > 0 && seconds < _timeLeft[row]))
+                        _timeLeft[row] = seconds;
+                    _counts[row]++;
+                }
             }
 
             for (var index = 0; index < _rows.Count; index++)
-                SetRow(index, _counts[index]);
+                SetRow(index, _counts[index], _timeLeft[index]);
             LayoutRows();
         }
 
@@ -150,7 +159,7 @@ namespace HudBreakout
         {
             PlaceRoot();
             for (var index = 0; index < _rows.Count; index++)
-                SetRow(index, 1);
+                SetRow(index, 1, 0);
             LayoutRows();
         }
 
@@ -201,17 +210,20 @@ namespace HudBreakout
             }
         }
 
-        private void SetRow(int index, int count)
+        private void SetRow(int index, int count, int timeLeft)
         {
             var row = _rows[index];
             var show = count > 0;
             if (row.Root.gameObject.activeSelf != show) row.Root.gameObject.SetActive(show);
-            if (row.LastCount == count) return;
+            if (row.LastCount == count && row.LastTimeLeft == timeLeft) return;
 
             row.LastCount = count;
+            row.LastTimeLeft = timeLeft;
             if (!show) return;
 
-            var text = row.Label + (count > 1 ? "  x" + count : "");
+            var text = row.Label
+                + (timeLeft > 0 ? " (" + timeLeft + "s)" : "")
+                + (count > 1 ? "  x" + count : "");
             if (row.Text.text != text) row.Text.text = text;
         }
 
